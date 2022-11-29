@@ -10,13 +10,13 @@ const PensionButton = () => {
   //making sure that the data is filles out
   const checkUserData = () => {
     if (
-      contextUser.name !== "" &&
-      contextUser.age !== null &&
-      contextUser.salary !== null &&
-      contextUser.pensionSaving !== null &&
-      contextUser.pensionPayment !== null &&
-      contextUser.publicPensionAge !== null &&
-      contextUser.wantedPensionAge !== null
+      contextUser?.name !== "" &&
+      contextUser?.age !== null &&
+      contextUser?.salary !== null &&
+      contextUser?.pensionSaving !== null &&
+      contextUser?.pensionPayment !== null &&
+      contextUser?.publicPensionAge !== null &&
+      contextUser?.wantedPensionAge !== null
     ) {return false}
       return true;
   }

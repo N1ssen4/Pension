@@ -28,9 +28,6 @@ const InputMapper: React.FC<{
     setContextUser(user);
   };
 
-  useEffect(() => {
-    localStorage.setItem("User", JSON.stringify(contextUser));
-  })
 
   return (
     <div>
@@ -45,6 +42,7 @@ const InputMapper: React.FC<{
           onChange={updateUserInfo}
           onBlur={updateUserInfo}
           labelname={props.labelname}
+          placeholder={props.placeholder}
         />
       ))}
     </div>

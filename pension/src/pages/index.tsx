@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { parse } from "path";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CalculateButton from "../components/home/CalculateButton";
 import { InputProps } from "../components/home/Input";
 import InputMapper from "../components/home/InputMapper";
@@ -9,62 +9,49 @@ import Introduction from "../components/home/Introduction";
 import { User } from "../types/User";
 
 const Home: NextPage = () => {
-  
-    const [LSUser, setLSUser] = useState<User>({
-      name: "",
-      age: null,
-      salary: null,
-      pensionSaving: null,
-      pensionPayment: null,
-      publicPensionAge: null,
-      wantedPensionAge: null,
-    });
-
-    useEffect(() => {
-      const user = JSON.parse(localStorage.getItem("User") || "{}");
-      setLSUser(user);
-      console.log("Local storage user: " + LSUser);
-    }, []);
-    
-    
-  
-  const fielddata: InputProps[] = [
-    {
-      name: "name",
-      type: "text",
-      placeholder: "navn",
-      labelname: "Navn",
-      defaultValue: LSUser?.name,
-    },
-    {
-      name: "age",
-      type: "number",
-      placeholder: "år",
-      labelname: "Alder",
-      defaultValue: LSUser?.age,
-    },
-    {
-      name: "salary",
-      type: "currency",
-      placeholder: "kr.",
-      labelname: "Løn før skat pr. måned",
-      defaultValue: LSUser?.salary,
-    },
-    {
-      name: "pensionSaving",
-      type: "currency",
-      placeholder: "kr.",
-      labelname: "Samlet pensionsopsparing",
-      defaultValue: LSUser?.pensionSaving,
-    },
-    {
-      name: "pensionPayment",
-      type: "currency",
-      placeholder: "kr.",
-      labelname: "Pensionsindbetaling pr. måned",
-      defaultValue: LSUser?.pensionPayment,
-    },
-  ];
+  const fielddata: InputProps[] = useMemo(() => {
+    const user =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("User") || "{}")
+        : null;
+    return [
+      {
+        name: "name",
+        type: "text",
+        placeholder: "Indtast navn",
+        labelname: "Navn",
+        defaultValue: user?.name || "",
+      },
+      {
+        name: "age",
+        type: "number",
+        placeholder: "Indtast år",
+        labelname: "Alder",
+        defaultValue: user?.age || "",
+      },
+      {
+        name: "salary",
+        type: "currency",
+        placeholder: "Indtast kr",
+        labelname: "Løn før skat pr. måned",
+        defaultValue: user?.salary || "",
+      },
+      {
+        name: "pensionSaving",
+        type: "currency",
+        placeholder: "Indtast kr",
+        labelname: "Samlet pensionsopsparing",
+        defaultValue: user?.pensionSaving || "",
+      },
+      {
+        name: "pensionPayment",
+        type: "currency",
+        placeholder: "Indtast kr",
+        labelname: "Pensionsindbetaling pr. måned",
+        defaultValue: user?.pensionPayment || "",
+      },
+    ];
+  }, []);
 
   return (
     <>

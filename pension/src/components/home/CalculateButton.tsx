@@ -16,13 +16,14 @@ const CalculateButton = () => {
       return true;
     } else false;
   };
+
+
   return (
     <>
       <div className="flex justify-center">
         <Link href={"/pension"}>
           <button
-            disabled={isUserFilled()}
-            onClick={() => console.log(contextUser)}
+            onClick={() => localStorage.setItem("User", JSON.stringify(contextUser))}
             className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
           >
             Beregn

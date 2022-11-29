@@ -6,7 +6,7 @@ import { InfoModal } from "./InfoModal";
 
 export interface InputProps {
   
-  defaultValue?: string | number;
+  defaultValue?: string | number | null;
   type: string;
   name: string;
   labelname: string;
@@ -95,6 +95,7 @@ const Input = ({
           <CurrencyInput
             disabled={disabled}
             placeholder={placeholder}
+            type={type}
             name={name}
             groupSeparator="."
             decimalSeparator=","

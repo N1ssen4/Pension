@@ -1,8 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
+import { getSetField } from "../../hooks/hooks";
+import { ErrorField } from "../home/ErrorField";
 
 const PensionInputAge = () => {
   const { setField, user } = useContext(UserContext);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+   const validationErrors = useMemo(() => {
+     return Object.entries(errors || {}).map(([key, value]) => ({
+       key,
+       value,
+     }));
+   }, [errors]);
+   const setFields = getSetField(errors, setErrors);
 
   const birthYear = () => {
     const age =
@@ -47,6 +57,11 @@ const PensionInputAge = () => {
     const value = e.target.value;
     setField("wantedPensionAge", value);
   };
+  const updatePensionAgeAndErrorField = (e: any) => {
+    const value = e.target.value;
+    setField("wantedPensionAge", value);
+    setFields("wantedPensionAge", Number.parseInt(value));
+  };
 
   return (
     <div className="flex justify-between text-center font-semibold">
@@ -71,11 +86,19 @@ const PensionInputAge = () => {
           className="w-[145px] rounded-full border py-2 text-center font-normal focus:font-bold"
           type="number"
           placeholder="Antal år"
-          onBlur={updatePensionAge}
+          onBlur={updatePensionAgeAndErrorField}
           onChange={updatePensionAge}
           defaultValue={user?.wantedPensionAge || 0}
         />
-        <div className="font-normal text-[#8E9197]">{wantedPensionAge()}</div>
+        {validationErrors.find((error) => error.key === "wantedPensionAge") ? (
+          <div className="relative ">
+            {ErrorField(
+              validationErrors.find((error) => error.key === "wantedPensionAge")
+            )}
+          </div>
+        ) : (
+          <div className="font-normal text-[#8E9197]">{wantedPensionAge()}</div>
+        )}
       </div>
     </div>
   );

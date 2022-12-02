@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetField } from "../../hooks/hooks";
-import { errorHandler } from "../../utils/errorHandler";
 import { ErrorField } from "./ErrorField";
 import Input, { InputProps } from "./Input";
 
@@ -16,14 +15,12 @@ const InputMapper: React.FC<{
      key,
      value,
    }));
-   
  }, [errors]);
 
   const setFields = getSetField(
     errors,
     setErrors
   )
-  
   const updateUserInfo = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -33,7 +30,8 @@ const InputMapper: React.FC<{
   const updateUserInfoAndErrorField = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    const correctValue = value.split(".").join("");
+    const correctValue =
+      name !== "name" ? Number.parseInt(value.split(".").join("")) : value.split(".").join(""); ;
     setField(name, correctValue);
     setFields(name, correctValue);
   };
@@ -61,7 +59,7 @@ const InputMapper: React.FC<{
           )}
         />
       ))}
-      <div>{}</div>
+      
     </div>
   );
 };

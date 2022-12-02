@@ -74,7 +74,6 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       return true;
     } catch (err) {
       if (err instanceof z.ZodError) {
-        console.log(err.issues)
         return false;
   }}}
 

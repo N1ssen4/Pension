@@ -6,6 +6,6 @@ export const getSetField = (
    setErrors?: Dispatch<SetStateAction<Record<string, string>>>, 
 ) => {
     return (fieldName: string, value: string | number) => {
-        errorHandler(fieldName,value,setErrors,errors)
+        errorHandler({key: fieldName,value: value},setErrors,errors)
    
 }}

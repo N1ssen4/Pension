@@ -1,12 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { parse } from "path";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import CalculateButton from "../components/home/CalculateButton";
 import { InputProps } from "../components/home/Input";
 import InputMapper from "../components/home/InputMapper";
 import Introduction from "../components/home/Introduction";
-import { User } from "../types/User";
+
 
 const Home: NextPage = () => {
   const fielddata: InputProps[] = useMemo(() => {
@@ -52,7 +51,6 @@ const Home: NextPage = () => {
       },
     ];
   }, []);
-
   return (
     <>
       <Head>
@@ -63,7 +61,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="grid place-content-center p-4">
-        <div className="min-h-[80vh] max-w-[375px] rounded-2xl border p-5 shadow-xl">
+        <div className="min-h-[80vh] max-w-[375px] rounded-2xl border p-5 shadow-xl space-y-3">
           <Introduction />
           <InputMapper data={fielddata} />
           <CalculateButton />

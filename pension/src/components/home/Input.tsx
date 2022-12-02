@@ -6,7 +6,7 @@ import { InfoModal } from "./InfoModal";
 
 export interface InputProps {
   
-  defaultValue?: string | number | null;
+  defaultValue?: string | number ;
   type: string;
   name: string;
   labelname: string;
@@ -52,7 +52,7 @@ const Input = ({
             <button onClick={toggleModal} key={name}>
               <QuestionMarkCircleIcon
                 id="navn"
-                className="stroke-[#8E9197] h-[17px] w-[17px]"
+                className="h-[17px] w-[17px] stroke-[#8E9197]"
               />
             </button>
           </div>
@@ -106,6 +106,7 @@ const Input = ({
           />
         )}
       </div>
+      <div className="">{errorField}</div>
     </div>
   );
 };

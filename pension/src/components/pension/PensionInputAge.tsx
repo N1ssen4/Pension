@@ -1,22 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context";
 
 const PensionInputAge = () => {
-  const { contextUser, setContextUser } = useContext(UserContext);
-  const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
+  const { setField, user } = useContext(UserContext);
 
   const birthYear = () => {
-    const age = contextUser?.age;
+    const age =
+    user.age !== null ? user.age : 0
     const today = new Date();
     const year = today.getFullYear();
     return year - age;
   };
   const publicPensionYear = () => {
-    return birthYear() + pensionAge() 
-  }
+    return birthYear() + pensionAge();
+  };
   const wantedPensionAge = () => {
-    return birthYear() + Number(contextUser?.wantedPensionAge)
-  }
+    if (user?.wantedPensionAge != null)
+      return birthYear() + Number(user?.wantedPensionAge);
+    else return "YYYY";
+  };
 
   const pensionAge = () => {
     if (birthYear() <= 1954) {
@@ -34,36 +36,24 @@ const PensionInputAge = () => {
     } else return 72;
   };
 
-  const updateWantedPensionAge = (e: any) => {
-    const wantedPensionAge = "wantedPensionAge";
-    const value = e.target.value;
-    setContextUser((prev: any) => {
-      return { ...prev, [wantedPensionAge]: value };
-    });
-    setFieldWasUpdated(true);
-  };
-
   const setPublicPensionAge = () => {
-    const publicPensionAge = "publicPensionAge";
     const value = (
       document.getElementById("publicPensionAge") as HTMLInputElement
     ).value;
-    setContextUser((prev: any) => {
-      return { ...prev, [publicPensionAge]: value };
-    });
+    setField("publicPensionAge", value);
   };
-  if (fieldWasUpdated) {
-    localStorage.setItem("User", JSON.stringify(contextUser));
-  }
-  useEffect(() => {
-    setPublicPensionAge();
-  },[]);
+
+  const updatePensionAge = (e: any) => {
+    const value = e.target.value;
+    setField("wantedPensionAge", value);
+  };
 
   return (
     <div className="flex justify-between text-center font-semibold">
       <div>
         <label className="mx-6 flex">Folkepensions-alder</label>
         <input
+          onLoad={setPublicPensionAge}
           id="publicPensionAge"
           name="publicPensionAge"
           className="w-[145px] rounded-full border py-2 text-center font-bold"
@@ -72,22 +62,20 @@ const PensionInputAge = () => {
           disabled={true}
           defaultValue={pensionAge()}
         />
-        <p className="font-normal text-[#8E9197]">{publicPensionYear()}</p>
+        <div className="font-normal text-[#8E9197]">{publicPensionYear()}</div>
       </div>
       <div>
         <label className="mx-6 flex">Ønsket Pensionsalder</label>
         <input
-          id="wantedPensionAge"
           name="wantedPensionAge"
           className="w-[145px] rounded-full border py-2 text-center font-normal focus:font-bold"
           type="number"
           placeholder="Antal år"
-          onBlur={updateWantedPensionAge}
-          defaultValue={contextUser?.wantedPensionAge}
+          onBlur={updatePensionAge}
+          onChange={updatePensionAge}
+          defaultValue={user?.wantedPensionAge || 0}
         />
-        <p className="font-normal text-[#8E9197]">
-          {fieldWasUpdated ? wantedPensionAge() : "YYYY"}
-        </p>
+        <div className="font-normal text-[#8E9197]">{wantedPensionAge()}</div>
       </div>
     </div>
   );

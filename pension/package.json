@@ -19,7 +19,9 @@
     "react-currency-input-field": "^3.6.9",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.5",
-    "zod": "^3.18.0"
+    "zod": "^3.18.0",
+    "zod-error": "^1.0.5",
+    "zod-validation-error": "^0.2.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

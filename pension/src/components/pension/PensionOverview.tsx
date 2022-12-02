@@ -6,30 +6,27 @@ import {
 } from "@heroicons/react/24/outline";
 import React, { useContext, useEffect, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context";
 import { numberWithCommas } from "../../utils/numberformatter";
 import PensionDiagram from "./PensionDiagram";
 
 const PensionOverview = () => {
-  const { contextUser, setContextUser } = useContext(UserContext);
+  const { user, setField } = useContext(UserContext);
   const [leftFieldInFocus, setLeftFieldInFocus] = useState(false);
   const [rightFieldInFocus, setRightFieldInFocus] = useState(true);
   const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
-
 
   const updatePensionPayment = (e: any) => {
     const name = "pensionPayment";
     const value = e.target.value;
     const correctValue = value.split(".").join("");
-    setContextUser((prev: any) => {
-      return { ...prev, [name]: correctValue };
-    });
+    setField(name, correctValue)
     setLeftFieldInFocus(false);
-    setFieldWasUpdated(true)
+    setFieldWasUpdated(true);
   };
 
   if (fieldWasUpdated) {
-    localStorage.setItem("User", JSON.stringify(contextUser));
+    localStorage.setItem("User", JSON.stringify(user));
   }
 
   return (
@@ -42,8 +39,8 @@ const PensionOverview = () => {
             <CurrencyInput
               id="pensionPayment"
               name="pensionPayment"
-              defaultValue={contextUser?.pensionPayment}
-              key={`pensionPayment:${contextUser?.pensionPayment}`}
+              defaultValue={user?.pensionPayment || 0}
+              key={`pensionPayment:${user?.pensionPayment}`}
               groupSeparator="."
               decimalSeparator=","
               className={
@@ -55,9 +52,9 @@ const PensionOverview = () => {
               onClick={() => setLeftFieldInFocus(true)}
               onBlur={updatePensionPayment}
             />
-            <p className={!leftFieldInFocus ? "font-bold" : ""}>
-              {numberWithCommas(contextUser?.pensionPayment)} kr.
-            </p>
+            <div className={!leftFieldInFocus ? "font-bold" : ""}>
+              {numberWithCommas(user?.pensionPayment)} kr.
+            </div>
             {!leftFieldInFocus ? (
               <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
             ) : (
@@ -84,7 +81,7 @@ const PensionOverview = () => {
               onClick={() => setRightFieldInFocus(true)}
               onBlur={() => setRightFieldInFocus(false)}
             />
-            <p className={!rightFieldInFocus ? "font-bold" : ""}>[Beløb] kr.</p>
+            <div className={!rightFieldInFocus ? "font-bold" : ""}>[Beløb] kr.</div>
             {!rightFieldInFocus ? (
               <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
             ) : (

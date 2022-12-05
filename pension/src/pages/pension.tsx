@@ -1,17 +1,12 @@
 import { NextPage } from "next";
-import { useContext, useEffect } from "react";
 import NavBar from "../components/navigation/NavBar";
 import PensionBottom from "../components/pension/PensionBottom";
 import PensionInputAge from "../components/pension/PensionInputAge";
 import PensionIntroduction from "../components/pension/PensionIntroduction";
 import PensionOverview from "../components/pension/PensionOverview";
-import { UserContext } from "../context";
 
 export const Pension: NextPage = () => {
-   const { setUser } = useContext(UserContext);
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("User") || "{}"));
-  }, []);
+
   return (
     <>
       <div>

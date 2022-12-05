@@ -10,7 +10,7 @@ const PensionDiagram = () => {
       ? user?.pensionPayment / user?.salary
       : 0;
       return divHeight
-  }, []);
+  }, [user]);
 
   return (
     <div className="flex justify-between">

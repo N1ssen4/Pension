@@ -1,4 +1,4 @@
-import { validationObject } from "./inputvalidation";
+import { validationSchema } from "./inputvalidation";
 import { fromZodError } from "zod-validation-error";
 import { ZodError } from "zod";
 
@@ -9,10 +9,13 @@ export const errorHandler = (
 ) => {
   const { key, value } = keyValue;
   try {
-    validationObject.pick({ [key]: true }).parse({ [key]: value });
+    validationSchema.pick({ [key]: true }).parse({ [key]: value });
 
     if (errors) {
       delete errors[key];
+    }
+    if (setError){
+      setError({...errors});
     }
   } catch (err) {
     if (setError) {

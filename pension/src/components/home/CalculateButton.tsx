@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../context";
 
 const CalculateButton = () => {
   const {dataIsValid, user} = useContext(UserContext)
+  
 
   return (
     <>

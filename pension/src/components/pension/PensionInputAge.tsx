@@ -1,22 +1,21 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
-import { getSetField } from "../../hooks/hooks";
+import { getSetError } from "../../hooks/hooks";
 import { ErrorField } from "../home/ErrorField";
 
 const PensionInputAge = () => {
   const { setField, user } = useContext(UserContext);
   const [errors, setErrors] = useState<Record<string, string>>({});
-   const validationErrors = useMemo(() => {
-     return Object.entries(errors || {}).map(([key, value]) => ({
-       key,
-       value,
-     }));
-   }, [errors]);
-   const setFields = getSetField(errors, setErrors);
+  const validationErrors = useMemo(() => {
+    return Object.entries(errors || {}).map(([key, value]) => ({
+      key,
+      value,
+    }));
+  }, [errors]);
+  const setError = getSetError(errors, setErrors);
 
   const birthYear = () => {
-    const age =
-    user.age !== null ? user.age : 0
+    const age = user.age !== null ? user.age : 0;
     const today = new Date();
     const year = today.getFullYear();
     return year - age;
@@ -26,7 +25,8 @@ const PensionInputAge = () => {
   };
   const wantedPensionAge = () => {
     if (user?.wantedPensionAge != null)
-      return birthYear() + Number(user?.wantedPensionAge);
+      if (isNaN(user?.wantedPensionAge)) return "YYYY";
+      else return birthYear() + Number(user?.wantedPensionAge);
     else return "YYYY";
   };
 
@@ -60,15 +60,18 @@ const PensionInputAge = () => {
   const updatePensionAgeAndErrorField = (e: any) => {
     const value = e.target.value;
     setField("wantedPensionAge", value);
-    setFields("wantedPensionAge", Number.parseInt(value));
+    setError("wantedPensionAge", Number.parseInt(value));
   };
+
+  useEffect(() => {
+    setPublicPensionAge();
+  }, []);
 
   return (
     <div className="flex justify-between text-center font-semibold">
       <div>
         <label className="mx-6 flex">Folkepensions-alder</label>
         <input
-          onLoad={setPublicPensionAge}
           id="publicPensionAge"
           name="publicPensionAge"
           className="w-[145px] rounded-full border py-2 text-center font-bold"

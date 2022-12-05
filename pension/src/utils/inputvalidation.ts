@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-
-export const validationObject = z.object({
+export const validationSchema = z.object({
   name: z
     .string()
     .min(1, { message: "Påkrævet felt" })
@@ -19,26 +18,26 @@ export const validationObject = z.object({
       invalid_type_error: "Påkrævet felt",
     })
     .min(1, { message: "Feltet skal have en værdi højere end 0 kr." })
-    .max(1000000, { message: "Max 1.000.000kr." }),
+    .max(1000000, { message: "Max 1.000.000 kr." }),
   pensionSaving: z
     .number({
       required_error: "Påkrævet felt",
       invalid_type_error: "Påkrævet felt",
     })
     .min(1, { message: "Feltet skal have en værdi højere end 0 kr." })
-    .max(10000000, { message: "Max 10.000.000kr." }),
+    .max(10000000, { message: "Max 10.000.000 kr." }),
   pensionPayment: z
     .number({
       required_error: "Påkrævet felt",
       invalid_type_error: "Påkrævet felt",
     })
     .min(1, { message: "Feltet skal have en værdi højere end 0 kr." })
-    .max(1000000, { message: "Max 1.000.000kr." }),
+    .max(1000000, { message: "Max 1.000.000 kr." }),
   wantedPensionAge: z
     .number({
       required_error: "Påkrævet felt",
       invalid_type_error: "Påkrævet felt",
     })
-    .min(60, { message: "Feltet skal have en værdi højere end 60 år." })
+    .min(60, { message: "Min 60 år" })
     .max(100, { message: "Mellem 60 og 100 år" }),
 });

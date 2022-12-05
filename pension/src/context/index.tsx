@@ -4,10 +4,11 @@ import React, {
   SetStateAction,
   useContext,
   useEffect,
+  useState,
 } from "react";
-import { z, ZodError } from "zod";
+import { z } from "zod";
 import { User } from "../types/User";
-import { validationObject } from "../utils/inputvalidation";
+import { validationSchema } from "../utils/inputvalidation";
 
 type TUserContext = {
   user: User;
@@ -44,38 +45,39 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
           pensionSaving: null,
           pensionPayment: null,
           publicPensionAge: null,
-          wantedPensionAge: null,
+          wantedPensionAge: 60,
         };
   };
-  const [user, setUser] = React.useState<User>(getInitialUser);
+  const [user, setUser] = useState<User>(getInitialUser);
 
   const setField = (name: string, value: any) => {
     if (name !== "name") {
       setUser({ ...user, [name]: Number.parseFloat(value) });
-    } else setUser({ ...user, [name]: value});
-    
+    } else setUser({ ...user, [name]: value });
   };
 
   const checkValidation = (key: string, value: any) => {
     try {
-      validationObject.pick({ [key]: true }).parse({
+      validationSchema.pick({ [key]: true }).parse({
         [key]: value,
       });
     } catch (err) {
       if (err instanceof z.ZodError) {
-        console.log(err.issues.map((error) => error.message).toString())
+        console.log(err.issues.map((error) => error.message).toString());
       }
     }
   };
 
   const dataIsValid = (user: User) => {
     try {
-      validationObject.parse(user)
+      validationSchema.parse(user);
       return true;
     } catch (err) {
       if (err instanceof z.ZodError) {
         return false;
-  }}}
+      }
+    }
+  };
 
   useEffect(() => {
     localStorage.setItem("User", JSON.stringify(user));

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
-import { getSetField } from "../../hooks/hooks";
+import { getSetError } from "../../hooks/hooks";
 import { ErrorField } from "./ErrorField";
 import Input, { InputProps } from "./Input";
 
@@ -10,35 +10,31 @@ const InputMapper: React.FC<{
   const { setField } = useContext(UserContext);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
- const validationErrors = useMemo(() => {
-   return Object.entries(errors || {}).map(([key, value]) => ({
-     key,
-     value,
-   }));
- }, [errors]);
+  const validationErrors = useMemo(() => {
+    return Object.entries(errors || {}).map(([key, value]) => ({
+      key,
+      value,
+    }));
+  }, [errors]);
 
-  const setFields = getSetField(
-    errors,
-    setErrors
-  )
+  const setError = getSetError(errors, setErrors);
+
   const updateUserInfo = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
     const correctValue = value.split(".").join("");
-    setField(name,correctValue)
+    setField(name, correctValue);
   };
   const updateUserInfoAndErrorField = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
     const correctValue =
-      name !== "name" ? Number.parseInt(value.split(".").join("")) : value.split(".").join(""); ;
+      name !== "name"
+        ? Number.parseInt(value.split(".").join(""))
+        : value.split(".").join("");
     setField(name, correctValue);
-    setFields(name, correctValue);
+    setError(name, correctValue);
   };
-
-
-
-  
 
   return (
     <div>
@@ -59,7 +55,6 @@ const InputMapper: React.FC<{
           )}
         />
       ))}
-      
     </div>
   );
 };

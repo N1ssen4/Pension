@@ -3,7 +3,6 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CurrencyInput from "react-currency-input-field";
 import { InfoModal } from "./InfoModal";
 
-
 export interface InputProps {
   
   defaultValue?: string | number ;
@@ -37,7 +36,7 @@ const Input = ({
   errorField,
   disabled = false,
 }: InputProps) => {
-
+  
   const [isModalOpen, setModalState] = React.useState(false);
   const toggleModal = () => setModalState(!isModalOpen);
   return (
@@ -79,18 +78,20 @@ const Input = ({
           </InfoModal>
         ) : null}
         {!currencyField ? (
-          <input
-            className="w-[160px] rounded-full border py-2 text-center"
-            placeholder={placeholder}
-            type={type}
-            name={name}
-            step={step}
-            onChange={onChange}
-            onBlur={onBlur}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-            disabled={disabled}
-          />
+          <>
+            <input
+              className="w-[160px] rounded-full border py-2 text-center"
+              placeholder={placeholder}
+              type={type}
+              name={name}
+              step={step}
+              onChange={onChange}
+              onBlur={onBlur}
+              defaultValue={defaultValue}
+              readOnly={readOnly}
+              disabled={disabled}
+            />
+          </>
         ) : (
           <CurrencyInput
             disabled={disabled}

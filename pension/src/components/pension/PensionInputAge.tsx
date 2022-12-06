@@ -88,6 +88,7 @@ const PensionInputAge = () => {
             placeholder="Antal år"
             disabled={true}
             defaultValue={pensionAge()}
+            onWheel={(event) => event.currentTarget.blur()}
           />
           <div className="font-normal text-[#8E9197]">
             {publicPensionYear()}

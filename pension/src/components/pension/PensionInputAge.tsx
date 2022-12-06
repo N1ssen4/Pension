@@ -20,14 +20,22 @@ const PensionInputAge = () => {
     const year = today.getFullYear();
     return year - age;
   };
+
   const publicPensionYear = () => {
+    if (isNaN(birthYear() + pensionAge())) return "YYYY";
     return birthYear() + pensionAge();
   };
+
   const wantedPensionAge = () => {
     if (user?.wantedPensionAge != null)
       if (isNaN(user?.wantedPensionAge)) return "YYYY";
       else return birthYear() + Number(user?.wantedPensionAge);
     else return "YYYY";
+  };
+
+  const PensionAgeCheck = () => {
+    const age = user.age != null ? user.age : 0;
+    return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
   };
 
   const pensionAge = () => {
@@ -68,42 +76,58 @@ const PensionInputAge = () => {
   }, []);
 
   return (
-    <div className="flex justify-between text-center font-semibold">
-      <div>
-        <label className="mx-6 flex">Folkepensions-alder</label>
-        <input
-          id="publicPensionAge"
-          name="publicPensionAge"
-          className="w-[145px] rounded-full border py-2 text-center font-bold"
-          type="number"
-          placeholder="Antal år"
-          disabled={true}
-          defaultValue={pensionAge()}
-        />
-        <div className="font-normal text-[#8E9197]">{publicPensionYear()}</div>
-      </div>
-      <div>
-        <label className="mx-6 flex">Ønsket Pensionsalder</label>
-        <input
-          name="wantedPensionAge"
-          className="w-[145px] rounded-full border py-2 text-center font-normal focus:font-bold"
-          type="number"
-          placeholder="Antal år"
-          onBlur={updatePensionAgeAndErrorField}
-          onChange={updatePensionAge}
-          defaultValue={user?.wantedPensionAge || 0}
-        />
-        {validationErrors.find((error) => error.key === "wantedPensionAge") ? (
-          <div className="relative ">
-            {ErrorField(
-              validationErrors.find((error) => error.key === "wantedPensionAge")
-            )}
+    <>
+      <div className="flex justify-between text-center font-semibold">
+        <div>
+          <label className="mx-6 flex">Folkepensions-alder</label>
+          <input
+            id="publicPensionAge"
+            name="publicPensionAge"
+            className="w-[145px] rounded-full border py-2 text-center font-bold"
+            type="number"
+            placeholder="Antal år"
+            disabled={true}
+            defaultValue={pensionAge()}
+          />
+          <div className="font-normal text-[#8E9197]">
+            {publicPensionYear()}
           </div>
-        ) : (
-          <div className="font-normal text-[#8E9197]">{wantedPensionAge()}</div>
-        )}
+        </div>
+        <div>
+          <label className="mx-6 flex">Ønsket Pensionsalder</label>
+          <input
+            name="wantedPensionAge"
+            className="w-[145px] rounded-full border py-2 text-center font-normal focus:font-bold"
+            type="number"
+            placeholder="Antal år"
+            onBlur={updatePensionAgeAndErrorField}
+            onChange={updatePensionAge}
+            defaultValue={user?.wantedPensionAge || 0}
+          />
+          {!PensionAgeCheck() ? (
+            validationErrors.find(
+              (error) => error.key === "wantedPensionAge"
+            ) ? (
+              <div className="relative ">
+                {ErrorField(
+                  validationErrors.find(
+                    (error) => error.key === "wantedPensionAge"
+                  )
+                )}
+              </div>
+            ) : (
+              <div className="font-normal text-[#8E9197]">
+                {wantedPensionAge()}
+              </div>
+            )
+          ) : (
+            <div className="text-sm text-red-700">
+              <p>Skal være højere end din alder</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

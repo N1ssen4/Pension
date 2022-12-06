@@ -2,7 +2,6 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useContext,
   useEffect,
   useState,
 } from "react";
@@ -36,19 +35,15 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const getInitialUser = () => {
     const user =
       typeof window !== "undefined" ? localStorage.getItem("User") : null;
-    return user
-      ? JSON.parse(user)
-      : {
-          name: "",
-          age: null,
-          salary: null,
-          pensionSaving: null,
-          pensionPayment: null,
-          publicPensionAge: null,
-          wantedPensionAge: 60,
-        };
+    return user ? JSON.parse(user) : { wantedPensionAge: 60};
+    
   };
-  const [user, setUser] = useState<User>(getInitialUser);
+
+  const [user, setUser] = useState<User>({} as User);
+
+  useEffect(() => {
+    setUser(getInitialUser());
+  }, []);
 
   const setField = (name: string, value: any) => {
     if (name !== "name") {

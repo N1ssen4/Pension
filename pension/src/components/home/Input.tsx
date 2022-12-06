@@ -68,11 +68,11 @@ const Input = ({
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             løn
           </InfoModal>
-        ) : name === "pensionsaving" ? (
+        ) : name === "pensionSaving" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             pensionsopsparing
           </InfoModal>
-        ) : name === "pensionpayment" ? (
+        ) : name === "pensionPayment" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             pensionsindbetaling
           </InfoModal>
@@ -90,6 +90,7 @@ const Input = ({
               defaultValue={defaultValue}
               readOnly={readOnly}
               disabled={disabled}
+              onWheel={event => event.currentTarget.blur()}
             />
           </>
         ) : (

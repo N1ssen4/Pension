@@ -12,6 +12,8 @@ const PensionDiagram = () => {
       return divHeight
   }, [user]);
 
+  
+
   return (
     <div className="flex justify-between">
       <div>

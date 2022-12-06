@@ -40,4 +40,4 @@ export const validationSchema = z.object({
     })
     .min(60, { message: "Min 60 år" })
     .max(100, { message: "Mellem 60 og 100 år" }),
-});
+})

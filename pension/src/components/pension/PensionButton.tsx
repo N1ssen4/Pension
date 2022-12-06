@@ -10,21 +10,47 @@ const PensionButton = () => {
   const createUser = async () => {
     await addDoc(usercollection, user);
   };
+  const PensionPaymentCheck = () => {
+    const salarylimit = user.salary != null ? user.salary * 0.8 : 0;
+    return user.pensionPayment != null
+      ? user.pensionPayment > salarylimit
+      : false;
+  };
+  const PensionAgeCheck = () => {
+    const age = user.age != null ? user.age : 0;
+    return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
+  };
   return (
     <>
-      <div>
-        <button
-          disabled={!dataIsValid(user)}
-          onClick={createUser}
-          className={
-            !dataIsValid(user)
-              ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
-              : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
-          }
-        >
-          Gem ændringer
-        </button>
-      </div>
+      {PensionPaymentCheck() ? (
+        <div className="flex justify-center text-center text-red-500">
+          <p>
+            Det er ikke muligt at indbetale mere end 80% af sin løn til pension.
+            Check venligst dine oplysninger igen.
+          </p>
+        </div>
+      ) : PensionAgeCheck() ? (
+        <div className="flex justify-center text-center text-red-500">
+          <p>
+            Det er ikke muligt at sætte din ønsket pensionalder lavere end din
+            alder. Check venligst dine oplysninger igen.
+          </p>
+        </div>
+      ) : (
+        <div>
+          <button
+            disabled={!dataIsValid(user)}
+            onClick={createUser}
+            className={
+              !dataIsValid(user)
+                ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
+                : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
+            }
+          >
+            Gem ændringer
+          </button>
+        </div>
+      )}
     </>
   );
 };

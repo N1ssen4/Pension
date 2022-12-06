@@ -3,6 +3,6 @@ export const ErrorField = (
 ) => {
   if (!errorMap) return null;
   return (
-    <div className="text-red-700">{errorMap.value}</div>
+    <div className="text-red-700 text-sm absolute left-1/2 -translate-x-1/2">{errorMap.value}</div>
   );
 };

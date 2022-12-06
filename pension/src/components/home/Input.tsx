@@ -3,10 +3,9 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CurrencyInput from "react-currency-input-field";
 import { InfoModal } from "./InfoModal";
 
-
 export interface InputProps {
   
-  defaultValue?: string | number | null;
+  defaultValue?: string | number ;
   type: string;
   name: string;
   labelname: string;
@@ -37,7 +36,7 @@ const Input = ({
   errorField,
   disabled = false,
 }: InputProps) => {
-
+  
   const [isModalOpen, setModalState] = React.useState(false);
   const toggleModal = () => setModalState(!isModalOpen);
   return (
@@ -52,7 +51,7 @@ const Input = ({
             <button onClick={toggleModal} key={name}>
               <QuestionMarkCircleIcon
                 id="navn"
-                className="stroke-[#8E9197] h-[17px] w-[17px]"
+                className="h-[17px] w-[17px] stroke-[#8E9197]"
               />
             </button>
           </div>
@@ -69,28 +68,31 @@ const Input = ({
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             løn
           </InfoModal>
-        ) : name === "pensionsaving" ? (
+        ) : name === "pensionSaving" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             pensionsopsparing
           </InfoModal>
-        ) : name === "pensionpayment" ? (
+        ) : name === "pensionPayment" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
             pensionsindbetaling
           </InfoModal>
         ) : null}
         {!currencyField ? (
-          <input
-            className="w-[160px] rounded-full border py-2 text-center"
-            placeholder={placeholder}
-            type={type}
-            name={name}
-            step={step}
-            onChange={onChange}
-            onBlur={onBlur}
-            defaultValue={defaultValue}
-            readOnly={readOnly}
-            disabled={disabled}
-          />
+          <>
+            <input
+              className="w-[160px] rounded-full border py-2 text-center"
+              placeholder={placeholder}
+              type={type}
+              name={name}
+              step={step}
+              onChange={onChange}
+              onBlur={onBlur}
+              defaultValue={defaultValue}
+              readOnly={readOnly}
+              disabled={disabled}
+              onWheel={event => event.currentTarget.blur()}
+            />
+          </>
         ) : (
           <CurrencyInput
             disabled={disabled}
@@ -106,6 +108,7 @@ const Input = ({
           />
         )}
       </div>
+      <div className="">{errorField}</div>
     </div>
   );
 };

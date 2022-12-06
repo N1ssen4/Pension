@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
-
+import React, { useContext, useMemo } from "react";
+import { UserContext } from "../../context";
 
 const PensionDiagram = () => {
-  const {contextUser} = useContext(UserContext)
-  const pensionPaymentPercent = contextUser?.pensionPayment / contextUser?.salary
+  const { user } = useContext(UserContext);
   
+  const pensionPaymentPercent = useMemo(() => {
+    const divHeight =
+    user?.pensionPayment && user?.salary != null
+      ? user?.pensionPayment / user?.salary
+      : 0;
+      return divHeight
+  }, [user]);
+
+  
+
   return (
     <div className="flex justify-between">
       <div>
@@ -20,7 +28,7 @@ const PensionDiagram = () => {
         <div className="relative h-[236px] w-[29px] border border-[#BEC1CA]">
           <div
             style={{ height: pensionPaymentPercent }}
-            className={`transition-[height] absolute inset-x-0 bottom-0 h-[100px] max-h-[236px] w-[27px] bg-gradient-to-b from-[#4C7762] to-[#7FC6A4]`}
+            className={`absolute inset-x-0 bottom-0 h-[100px] max-h-[236px] w-[27px] bg-gradient-to-b from-[#4C7762] to-[#7FC6A4] transition-[height]`}
           ></div>
         </div>
       </div>

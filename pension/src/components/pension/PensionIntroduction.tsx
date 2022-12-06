@@ -17,9 +17,9 @@ const PensionIntroduction = () => {
         <InfoModal isOpen={isModalOpen} onclose={toggleModal}>
           Pensionsinfo
         </InfoModal>
-        <p className="text-center">
+        <div className="text-center">
           Her kan du se konsekvenserne af at ændre din pensionsalder:
-        </p>
+        </div>
       </div>
     </>
   );

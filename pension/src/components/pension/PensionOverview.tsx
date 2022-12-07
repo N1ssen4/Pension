@@ -9,7 +9,7 @@ import CurrencyInput from "react-currency-input-field";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
 import { birthYear } from "../../utils/birthyear";
-import { GetCalculations } from "../../utils/calculations/calculations";
+import { GetCalculations } from "../../utils/calculations/Calculations";
 import { CheckUserDataToKeylane } from "../../utils/calculations/CalculationTypes";
 import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton";
 import { numberWithCommas } from "../../utils/numberformatter";

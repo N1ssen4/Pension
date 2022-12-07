@@ -2,9 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import { db } from "../../utils/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
-import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton";
-import { GetCalculations } from "../../utils/calculations/calculations";
-import { birthYear } from "../../utils/birthyear";
 
 const PensionButton = () => {
   const { user, dataIsValid } = useContext(UserContext);

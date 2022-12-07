@@ -3,16 +3,20 @@ import { UserContext } from "../../context";
 
 const PensionDiagram = () => {
   const { user } = useContext(UserContext);
-  
+
   const pensionPaymentPercent = useMemo(() => {
     const divHeight =
-    user?.pensionPayment && user?.salary != null
-      ? user?.pensionPayment / user?.salary
-      : 0;
-      return divHeight
+      user?.pensionPayment && user?.salary != null
+        ? user?.pensionPayment / user?.salary
+        : 0;
+    return divHeight;
   }, [user]);
 
-  
+  const pensionCoverageRatioPercent = useMemo(() => {
+    const divHeight = 
+      user?.coverageRatio != null ? user?.coverageRatio : 0;
+    return divHeight
+  }, [user]);
 
   return (
     <div className="flex justify-between">
@@ -27,7 +31,7 @@ const PensionDiagram = () => {
       <div>
         <div className="relative h-[236px] w-[29px] border border-[#BEC1CA]">
           <div
-            style={{ height: pensionPaymentPercent }}
+            style={{ height: pensionCoverageRatioPercent * 236 }}
             className={`absolute inset-x-0 bottom-0 h-[100px] max-h-[236px] w-[27px] bg-gradient-to-b from-[#4C7762] to-[#7FC6A4] transition-[height]`}
           ></div>
         </div>

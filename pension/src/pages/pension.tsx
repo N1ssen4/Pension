@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { Suspense } from "react";
 import NavBar from "../components/navigation/NavBar";
 import PensionBottom from "../components/pension/PensionBottom";
 import PensionInputAge from "../components/pension/PensionInputAge";
@@ -6,7 +7,6 @@ import PensionIntroduction from "../components/pension/PensionIntroduction";
 import PensionOverview from "../components/pension/PensionOverview";
 
 export const Pension: NextPage = () => {
-
   return (
     <>
       <div>

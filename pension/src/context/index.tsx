@@ -35,7 +35,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const getInitialUser = () => {
     const user =
       typeof window !== "undefined" ? localStorage.getItem("User") : null;
-    return user ? JSON.parse(user) : { wantedPensionAge: 60};
+    return user ? JSON.parse(user) : { wantedPensionAge: 66};
     
   };
 

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
+import { birthYear } from "../../utils/birthyear";
 import { ErrorField } from "../home/ErrorField";
 
 const PensionInputAge = () => {
@@ -14,22 +15,16 @@ const PensionInputAge = () => {
   }, [errors]);
   const setError = getSetError(errors, setErrors);
 
-  const birthYear = () => {
-    const age = user.age !== null ? user.age : 0;
-    const today = new Date();
-    const year = today.getFullYear();
-    return year - age;
-  };
-
+  
   const publicPensionYear = () => {
-    if (isNaN(birthYear() + pensionAge())) return "YYYY";
-    return birthYear() + pensionAge();
+    if (isNaN(birthYear(user.age) + pensionAge())) return "YYYY";
+    return birthYear(user.age) + pensionAge();
   };
 
   const wantedPensionAge = () => {
     if (user?.wantedPensionAge != null)
       if (isNaN(user?.wantedPensionAge)) return "YYYY";
-      else return birthYear() + Number(user?.wantedPensionAge);
+      else return birthYear(user.age) + Number(user?.wantedPensionAge);
     else return "YYYY";
   };
 
@@ -39,26 +34,19 @@ const PensionInputAge = () => {
   };
 
   const pensionAge = () => {
-    if (birthYear() <= 1954) {
+    if (birthYear(user.age) <= 1954) {
       return 66;
-    } else if (birthYear() <= 1955) {
+    } else if (birthYear(user.age) <= 1955) {
       return 67;
-    } else if (birthYear() < 1962) {
+    } else if (birthYear(user.age) < 1962) {
       return 68;
-    } else if (birthYear() < 1966) {
+    } else if (birthYear(user.age) < 1966) {
       return 69;
-    } else if (birthYear() < 1970) {
+    } else if (birthYear(user.age) < 1970) {
       return 70;
-    } else if (birthYear() < 1974) {
+    } else if (birthYear(user.age) < 1974) {
       return 71;
     } else return 72;
-  };
-
-  const setPublicPensionAge = () => {
-    const value = (
-      document.getElementById("publicPensionAge") as HTMLInputElement
-    ).value;
-    setField("publicPensionAge", value);
   };
 
   const updatePensionAge = (e: any) => {
@@ -70,10 +58,6 @@ const PensionInputAge = () => {
     setField("wantedPensionAge", value);
     setError("wantedPensionAge", Number.parseInt(value));
   };
-
-  useEffect(() => {
-    setPublicPensionAge();
-  }, []);
 
   return (
     <>

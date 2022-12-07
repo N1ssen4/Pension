@@ -8,6 +8,10 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
+import { birthYear } from "../../utils/birthyear";
+import { GetCalculations } from "../../utils/calculations/calculations";
+import { CheckUserDataToKeylane } from "../../utils/calculations/CalculationTypes";
+import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton";
 import { numberWithCommas } from "../../utils/numberformatter";
 import { ErrorField } from "../home/ErrorField";
 import PensionDiagram from "./PensionDiagram";
@@ -15,8 +19,9 @@ import PensionDiagram from "./PensionDiagram";
 const PensionOverview = () => {
   const { user, setField } = useContext(UserContext);
   const [leftFieldInFocus, setLeftFieldInFocus] = useState(false);
-  const [rightFieldInFocus, setRightFieldInFocus] = useState(true);
+  const [rightFieldInFocus, setRightFieldInFocus] = useState(false);
   const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
+  const [KeyLaneDataWasUpdated, setKeyLaneDataWasUpdated] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validationErrors = useMemo(() => {
@@ -27,7 +32,6 @@ const PensionOverview = () => {
   }, [errors]);
   const setError = getSetError(errors, setErrors);
 
-  
   const updatePensionPayment = (e: any) => {
     const name = "pensionPayment";
     const value = e.target.value;
@@ -48,6 +52,58 @@ const PensionOverview = () => {
       else return numberWithCommas(user.pensionPayment);
     }
   };
+  const pensionPaymentOut = () => {
+    if (user?.pensionPaymentOut != null) {
+      if (isNaN(user.pensionPaymentOut)) return "";
+      else return numberWithCommas(user.pensionPaymentOut);
+    }
+  };
+
+  const currentUser: PayloadSkeleton = {
+    primary: {
+      birthYear: birthYear(user.age),
+      currentPensionSavings: user.pensionSaving,
+      monthlyPensionPayment: user.pensionPayment,
+      monthlySalary: user.salary,
+      pensionAge: user.wantedPensionAge,
+      voluntaryPayment: 0,
+    },
+    sharedHouseAndLiability: {
+      houseInterest: 0,
+      houseValue: 1,
+      housingDataYear: 2022,
+      liabilityInterest: 0,
+      liabilityPrincipal: 0,
+      liabilityRemainingRepaymentFreeYears: 0,
+      liabilityRemainingTenure: 0,
+    },
+    savings: {
+      currentEmergencySavings: 0,
+      monthlySavings: 0,
+    },
+  };
+
+  const KeylaneResult = async () => {
+    const UserDataCheck = CheckUserDataToKeylane.safeParse(currentUser);
+    if (UserDataCheck.success) {
+      const resultKeylane = await GetCalculations(
+        currentUser,
+        JSON.stringify(process.env.NEXT_PUBLIC_SERVICES_API_URL)
+      );
+      const coverageRatio =
+        resultKeylane.results.pensionCoverageRatioPayments.baseline.personOne
+          .coverageRatio;
+      setKeyLaneDataWasUpdated(true);
+      setField("coverageRatio", coverageRatio);
+    }
+  };
+
+  useEffect(() => {
+    KeylaneResult();
+  }, [user.pensionPayment, user.wantedPensionAge]);
+
+
+
   return (
     <>
       <div className="flex justify-between text-center">
@@ -83,8 +139,8 @@ const PensionOverview = () => {
               </div>
             ) : (
               <>
-                <div className={!leftFieldInFocus ? "font-bold" : ""}>
-                  {pensionPayment()} kr.
+                <div className={!leftFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
+                  {pensionPayment()} kr. før skat
                 </div>
                 {!leftFieldInFocus ? (
                   <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
@@ -105,6 +161,7 @@ const PensionOverview = () => {
             <CurrencyInput
               groupSeparator="."
               decimalSeparator=","
+              defaultValue={user?.pensionPaymentOut || 0}
               className={
                 rightFieldInFocus
                   ? "w-[107px] rounded-full border py-2 text-center"
@@ -114,8 +171,8 @@ const PensionOverview = () => {
               onClick={() => setRightFieldInFocus(true)}
               onBlur={() => setRightFieldInFocus(false)}
             />
-            <div className={!rightFieldInFocus ? "font-bold" : ""}>
-              [Beløb] kr.
+            <div className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
+              {pensionPaymentOut()} kr. før skat
             </div>
             {!rightFieldInFocus ? (
               <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />

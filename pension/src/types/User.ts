@@ -6,4 +6,6 @@ export type User = {
   pensionPayment: number | null;
   publicPensionAge: number | null;
   wantedPensionAge: number | null;
+  coverageRatio: number | null;
+  pensionPaymentOut: number | null;
 };

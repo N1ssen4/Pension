@@ -1,7 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import { db } from "../../utils/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
+import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton";
+import { GetCalculations } from "../../utils/calculations/calculations";
+import { birthYear } from "../../utils/birthyear";
 
 const PensionButton = () => {
   const { user, dataIsValid } = useContext(UserContext);
@@ -20,6 +23,8 @@ const PensionButton = () => {
     const age = user.age != null ? user.age : 0;
     return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
   };
+
+
   return (
     <>
       {PensionPaymentCheck() ? (
@@ -40,7 +45,6 @@ const PensionButton = () => {
         <div>
           <button
             disabled={!dataIsValid(user)}
-            onClick={createUser}
             className={
               !dataIsValid(user)
                 ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"

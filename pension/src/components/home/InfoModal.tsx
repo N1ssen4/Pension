@@ -19,14 +19,14 @@ export const InfoModal: React.FC<ModalProps> = ({
     }
   };
   return isOpen ? (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-25">
+    <div className="fixed -inset-5 z-50 bg-black bg-opacity-50">
       <div className="fixed inset-0 overflow-y-auto ">
         <div
           ref={overlayRef}
           onClick={handeOverlayClick}
           className="flex min-h-full max-w-[375px] items-center mx-auto p-4 text-center"
         >
-          <div className=" h-full w-full transform rounded-[25px] bg-white p-4 text-left align-middle shadow-[0_6px_6px_1px_rgba(0,0,0,0.3)] transition-all">
+          <div className="h-full w-full transform rounded-[25px] bg-white p-4 text-left align-middle shadow-[0_6px_6px_1px_rgba(0,0,0,0.3)] transition-all">
             <button
               className="w-full pb-4 text-right"
               type="button"

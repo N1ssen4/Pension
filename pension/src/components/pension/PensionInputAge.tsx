@@ -49,10 +49,6 @@ const PensionInputAge = () => {
     } else return 72;
   };
 
-  const updatePensionAge = (e: any) => {
-    const value = e.target.value;
-    setField("wantedPensionAge", value);
-  };
   const updatePensionAgeAndErrorField = (e: any) => {
     const value = e.target.value;
     setField("wantedPensionAge", value);
@@ -85,7 +81,6 @@ const PensionInputAge = () => {
             type="number"
             placeholder="Antal år"
             onBlur={updatePensionAgeAndErrorField}
-            onChange={updatePensionAge}
             defaultValue={user?.wantedPensionAge || 0}
           />
           {!PensionAgeCheck() ? (

@@ -7,7 +7,7 @@ const PensionBottom = () => {
 
  const pensionCoverageRatioPercent = useMemo(()=> {
     const percent = 
-      user?.coverageRatio != null ? Math.round(user.coverageRatio * 100) : "XX"
+      user?.coverageRatio != null ? Math.round(user.coverageRatio * 100) : ""
     return percent
  },[user])
   return (

@@ -21,7 +21,6 @@ const PensionOverview = () => {
   const [leftFieldInFocus, setLeftFieldInFocus] = useState(false);
   const [rightFieldInFocus, setRightFieldInFocus] = useState(false);
   const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
-  const [KeyLaneDataWasUpdated, setKeyLaneDataWasUpdated] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validationErrors = useMemo(() => {
@@ -53,11 +52,11 @@ const PensionOverview = () => {
     }
   };
   const pensionPaymentOut = () => {
-    if (user?.pensionPaymentOut != null) {
-      if (isNaN(user.pensionPaymentOut)) return "";
-      else return numberWithCommas(user.pensionPaymentOut);
-    }
-  };
+    if (user?.coverageRatio && user?.salary != null )
+      return Math.round(user.salary * user.coverageRatio)
+    return ""
+  }
+
 
   const currentUser: PayloadSkeleton = {
     primary: {
@@ -93,7 +92,6 @@ const PensionOverview = () => {
       const coverageRatio =
         resultKeylane.results.pensionCoverageRatioPayments.baseline.personOne
           .coverageRatio;
-      setKeyLaneDataWasUpdated(true);
       setField("coverageRatio", coverageRatio);
     }
   };
@@ -101,7 +99,6 @@ const PensionOverview = () => {
   useEffect(() => {
     KeylaneResult();
   }, [user.pensionPayment, user.wantedPensionAge]);
-
 
 
   return (
@@ -161,7 +158,7 @@ const PensionOverview = () => {
             <CurrencyInput
               groupSeparator="."
               decimalSeparator=","
-              defaultValue={user?.pensionPaymentOut || 0}
+              value={pensionPaymentOut()}
               className={
                 rightFieldInFocus
                   ? "w-[107px] rounded-full border py-2 text-center"

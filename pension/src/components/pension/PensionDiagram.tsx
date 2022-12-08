@@ -24,7 +24,7 @@ const PensionDiagram = () => {
         <div className="relative h-[236px] w-[29px] border border-[#BEC1CA]">
           <div
             style={{ height: pensionPaymentPercent * 236 }}
-            className={`absolute inset-x-0 bottom-0 max-h-[236px] w-[27px] bg-gradient-to-b from-[#514DF9] to-[#E3E2FF] transition-[height]`}
+            className={`absolute inset-x-0 bottom-0 max-h-[236px] w-[27px] bg-gradient-to-b from-[#514DF9] to-[#E3E2FF] transition-[height] duration-700`}
           ></div>
         </div>
       </div>
@@ -32,7 +32,7 @@ const PensionDiagram = () => {
         <div className="relative h-[236px] w-[29px] border border-[#BEC1CA]">
           <div
             style={{ height: pensionCoverageRatioPercent * 236 }}
-            className={`absolute inset-x-0 bottom-0 h-[100px] max-h-[236px] w-[27px] bg-gradient-to-b from-[#4C7762] to-[#7FC6A4] transition-[height]`}
+            className={`absolute inset-x-0 bottom-0 h-[100px] max-h-[236px] w-[27px] bg-gradient-to-b from-[#4C7762] to-[#7FC6A4] transition-[height] duration-700`}
           ></div>
         </div>
       </div>

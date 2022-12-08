@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { CalculateSet } from "./CalculationTypes";
 import { PayloadSkeleton } from "./KeylanePayloadSkeleton";
+
+
 
 export const GetCalculations = async (
   keylanePayload: PayloadSkeleton,
@@ -7,6 +10,7 @@ export const GetCalculations = async (
   
 ): Promise<CalculateSet>  => {
   try {
+    
     const result = await fetch(
       `${process.env.NEXT_PUBLIC_SERVICES_API_URL}/api/CalculateTargetPrices`,
       {
@@ -19,7 +23,8 @@ export const GetCalculations = async (
         
       },
       
-    ).then((response) => response.json());
+    )
+    .then((response) => response.json());
     if (result && result.errors) {
       console.log(result);
       console.log("FEJL UDREGNING", JSON.stringify(result.errors));

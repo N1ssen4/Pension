@@ -15,6 +15,7 @@ import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton
 import { numberWithCommas } from "../../utils/numberformatter";
 import { ErrorField } from "../home/ErrorField";
 import PensionDiagram from "./PensionDiagram";
+import { BeatLoader } from "react-spinners";
 
 const PensionOverview = () => {
   const { user, setField } = useContext(UserContext);
@@ -22,6 +23,7 @@ const PensionOverview = () => {
   const [rightFieldInFocus, setRightFieldInFocus] = useState(false);
   const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false)
 
   const validationErrors = useMemo(() => {
     return Object.entries(errors || {}).map(([key, value]) => ({
@@ -83,23 +85,26 @@ const PensionOverview = () => {
   };
 
   const KeylaneResult = async () => {
+    
     const UserDataCheck = CheckUserDataToKeylane.safeParse(currentUser);
     if (UserDataCheck.success) {
+      setLoading(true);
       const resultKeylane = await GetCalculations(
         currentUser,
         JSON.stringify(process.env.NEXT_PUBLIC_SERVICES_API_URL)
       );
+      setLoading(false)
       const coverageRatio =
         resultKeylane.results.pensionCoverageRatioPayments.baseline.personOne
           .coverageRatio;
       setField("coverageRatio", coverageRatio);
+      
     }
   };
 
   useEffect(() => {
     KeylaneResult();
   }, [user.pensionPayment, user.wantedPensionAge]);
-
 
   return (
     <>
@@ -151,33 +156,39 @@ const PensionOverview = () => {
         <div className="w-[71px]">
           <PensionDiagram />
         </div>
-        <div className="w-[107px]">
-          <div className="space-y-5">
-            <ArrowLongUpIcon className="mx-auto h-[25px]" />
-            <label className="font-semibold">Udbetaling</label>
-            <CurrencyInput
-              groupSeparator="."
-              decimalSeparator=","
-              value={pensionPaymentOut()}
-              className={
-                rightFieldInFocus
-                  ? "w-[107px] rounded-full border py-2 text-center"
-                  : "w-[107px] rounded-full border py-2 text-center font-bold"
-              }
-              placeholder="pr. måned"
-              onClick={() => setRightFieldInFocus(true)}
-              onBlur={() => setRightFieldInFocus(false)}
-            />
-            <div className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
-              {pensionPaymentOut()} kr. før skat
-            </div>
-            {!rightFieldInFocus ? (
-              <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
-            ) : (
-              <LockOpenIcon className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2" />
-            )}
+        {loading ? (
+          <div className="my-auto w-[107px]">
+            <BeatLoader color="#4C7762"></BeatLoader>
           </div>
-        </div>
+        ) : (
+          <div className="w-[107px]">
+            <div className="space-y-5">
+              <ArrowLongUpIcon className="mx-auto h-[25px]" />
+              <label className="font-semibold">Udbetaling</label>
+              <CurrencyInput
+                groupSeparator="."
+                decimalSeparator=","
+                value={pensionPaymentOut()}
+                className={
+                  rightFieldInFocus
+                    ? "w-[107px] rounded-full border py-2 text-center"
+                    : "w-[107px] rounded-full border py-2 text-center font-bold"
+                }
+                placeholder="pr. måned"
+                onClick={() => setRightFieldInFocus(true)}
+                onBlur={() => setRightFieldInFocus(false)}
+              />
+              <div className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
+                {numberWithCommas(pensionPaymentOut())} kr. før skat
+              </div>
+              {!rightFieldInFocus ? (
+                <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
+              ) : (
+                <LockOpenIcon className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2" />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

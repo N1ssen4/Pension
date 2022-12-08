@@ -1,7 +1,9 @@
 import {z} from 'zod'
 
 
-//-------------------------------Dreamplans egne udregningstypechecks
+//Dreamplans Own validation schemas for the calculations from Keylane. 
+
+//NOT MADE BY ME
 export const ZHousingOutput = z.object({
   averageMonthlyInstallmentUntilPension: z.number(),
   debtFactor: z.number(),
@@ -97,7 +99,7 @@ export const ZCalculateSet = z.object({
 
 
 
-// -------------------------------------------- Lavet af Mig 
+// Validation schemas for the data I send to Keylane to get the correct response. 
 export const primaryUserData = z.object({
   birthYear: z.number().min(1900).max(2022),
   currentPensionSavings: z.number().min(1).max(10000000),

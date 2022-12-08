@@ -3,8 +3,10 @@ import React from 'react'
 import { InfoModal } from '../home/InfoModal';
 
 const PensionIntroduction = () => {
+  //state and function for handling maodals. 
   const [isModalOpen, setModalState] = React.useState(false);
   const toggleModal = () => setModalState(!isModalOpen);
+  
   return (
     <>
       <div className="mx-12 space-y-5 ">

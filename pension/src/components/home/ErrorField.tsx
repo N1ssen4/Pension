@@ -1,3 +1,5 @@
+
+//ErrorField component to display error to the user. 
 export const ErrorField = (
   errorMap: { key: string; value: string } | undefined
 ) => {

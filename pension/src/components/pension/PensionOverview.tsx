@@ -18,13 +18,16 @@ import PensionDiagram from "./PensionDiagram";
 import { BeatLoader } from "react-spinners";
 
 const PensionOverview = () => {
+  //initialize userContext
   const { user, setField } = useContext(UserContext);
+  //initialize states
   const [leftFieldInFocus, setLeftFieldInFocus] = useState(false);
   const [rightFieldInFocus, setRightFieldInFocus] = useState(false);
   const [fieldWasUpdated, setFieldWasUpdated] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false)
 
+  //funtion to look through the errormap and displaying them to the user.
   const validationErrors = useMemo(() => {
     return Object.entries(errors || {}).map(([key, value]) => ({
       key,
@@ -33,6 +36,7 @@ const PensionOverview = () => {
   }, [errors]);
   const setError = getSetError(errors, setErrors);
 
+  //Updating the PensionPaymentField.
   const updatePensionPayment = (e: any) => {
     const name = "pensionPayment";
     const value = e.target.value;
@@ -46,20 +50,20 @@ const PensionOverview = () => {
   if (fieldWasUpdated) {
     localStorage.setItem("User", JSON.stringify(user));
   }
-
+  //Checking the pensionpayment object and making sure it's not null or NaN value.
   const pensionPayment = () => {
     if (user?.pensionPayment != null) {
       if (isNaN(user.pensionPayment)) return "";
       else return numberWithCommas(user.pensionPayment);
     }
   };
+  //Checking that the coverage ratio and salary is not null then rounding the number.  
   const pensionPaymentOut = () => {
     if (user?.coverageRatio && user?.salary != null )
       return Math.round(user.salary * user.coverageRatio)
     return ""
   }
-
-
+  //Define the user skeleton with context information.
   const currentUser: PayloadSkeleton = {
     primary: {
       birthYear: birthYear(user.age),
@@ -83,7 +87,7 @@ const PensionOverview = () => {
       monthlySavings: 0,
     },
   };
-
+  //fetching the calculations and getting the coverage ratio from Keylane. 
   const KeylaneResult = async () => {
     
     const UserDataCheck = CheckUserDataToKeylane.safeParse(currentUser);
@@ -101,7 +105,7 @@ const PensionOverview = () => {
       
     }
   };
-
+  //Caling the calculationg everytime the user changes their pension age or payment. 
   useEffect(() => {
     KeylaneResult();
   }, [user.pensionPayment, user.wantedPensionAge]);

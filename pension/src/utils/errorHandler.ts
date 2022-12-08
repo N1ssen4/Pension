@@ -2,6 +2,7 @@ import { validationSchema } from "./inputvalidation";
 import { fromZodError } from "zod-validation-error";
 import { ZodError } from "zod";
 
+// Function to handle the errors from the validation schema
 export const errorHandler = (
   keyValue: { key: string; value: string | number },
   setError?: (value: any) => void,

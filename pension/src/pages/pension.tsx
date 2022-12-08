@@ -6,6 +6,8 @@ import PensionInputAge from "../components/pension/PensionInputAge";
 import PensionIntroduction from "../components/pension/PensionIntroduction";
 import PensionOverview from "../components/pension/PensionOverview";
 
+
+//PensionPage
 export const Pension: NextPage = () => {
   return (
     <>

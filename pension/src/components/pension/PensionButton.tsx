@@ -5,18 +5,22 @@ import { addDoc, collection } from "firebase/firestore";
 import Link from "next/link";
 
 const PensionButton = () => {
+  //Initialize context 
   const { user, dataIsValid } = useContext(UserContext);
+  //Setup for firebase 
   const usercollection = collection(db, "users");
-
+  //Add a user to Firebase000
   const createUser = async () => {
     await addDoc(usercollection, user);
   };
+  //Making sure that the user cannot input a pensionpayment that is more that 80 percent of their salary.
   const PensionPaymentCheck = () => {
     const salarylimit = user.salary != null ? user.salary * 0.8 : 0;
     return user.pensionPayment != null
       ? user.pensionPayment > salarylimit
       : false;
   };
+  //Checking that the users age is not greater that the wanted pension age. 
   const PensionAgeCheck = () => {
     const age = user.age != null ? user.age : 0;
     return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;

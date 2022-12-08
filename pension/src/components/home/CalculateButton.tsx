@@ -3,8 +3,9 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "../../context";
 
 const CalculateButton = () => {
+  //Initialize the context
   const { dataIsValid, user } = useContext(UserContext);
-
+  //Checking that the user is not paying more than 80 percent of their salary to pension. 
   const PensionPaymentCheck = () => {
     const salarylimit = user.salary != null ? user.salary * 0.8 : 0;
     return user.pensionPayment != null

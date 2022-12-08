@@ -3,8 +3,9 @@ import { UserContext } from '../../context'
 import PensionButton from './PensionButton'
 
 const PensionBottom = () => {
+  //Initialize the context
  const {user} = useContext(UserContext)
-
+  //Getting the coverage ratio in percent to display for the user. 
  const pensionCoverageRatioPercent = useMemo(()=> {
     const percent = 
       user?.coverageRatio != null ? Math.round(user.coverageRatio * 100) : ""

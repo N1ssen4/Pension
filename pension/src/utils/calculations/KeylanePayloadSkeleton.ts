@@ -1,3 +1,7 @@
+
+//Dreamplans PayloadSkeleton for typesafe response from KeyLane.
+
+//NOT MADE BY ME
 export interface PayloadSkeleton {
   primary: PrimaryUserPayload;
   sharedHouseAndLiability: SharedHouseAndLiability;

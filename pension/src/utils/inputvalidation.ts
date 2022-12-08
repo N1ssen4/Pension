@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+// Zod validation schema to validate data bot when going from the 
+// inputpage to the pension page and when trying to book a metting on the pension page.
 export const validationSchema = z.object({
   name: z
     .string()

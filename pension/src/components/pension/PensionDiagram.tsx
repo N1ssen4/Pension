@@ -2,8 +2,9 @@ import React, { useContext, useMemo } from "react";
 import { UserContext } from "../../context";
 
 const PensionDiagram = () => {
+  //Initialize the context.
   const { user } = useContext(UserContext);
-
+  //Calculating what percentage of the salary that the user is paying in pension.
   const pensionPaymentPercent = useMemo(() => {
     const divHeight =
       user?.pensionPayment && user?.salary != null
@@ -11,7 +12,7 @@ const PensionDiagram = () => {
         : 0;
     return divHeight;
   }, [user]);
-
+  //Making sure the coverageratio is not null.
   const pensionCoverageRatioPercent = useMemo(() => {
     const divHeight = 
       user?.coverageRatio != null ? user?.coverageRatio : 0;

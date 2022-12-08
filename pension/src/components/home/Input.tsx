@@ -3,8 +3,8 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CurrencyInput from "react-currency-input-field";
 import { InfoModal } from "./InfoModal";
 
-export interface InputProps {
-  
+//Input props
+export interface InputProps {  
   defaultValue?: string | number ;
   type: string;
   name: string;
@@ -20,7 +20,7 @@ export interface InputProps {
   errorField?: React.ReactNode;
   disabled?: boolean;
 }
-
+//Input component for all the inputs. 
 const Input = ({
   type,
   name,

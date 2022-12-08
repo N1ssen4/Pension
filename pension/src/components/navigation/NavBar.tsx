@@ -4,7 +4,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import DreamplanLogo from "./DreamplanLogo";
 
+//Navbar with the logo and users name. 
 const NavBar = () => {
+  //Initialize the context
   const {user} = useContext(UserContext);
  
 

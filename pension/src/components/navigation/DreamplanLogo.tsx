@@ -1,5 +1,6 @@
 import React from 'react'
 
+//Dreamplans logo
 const DreamplanLogo = () => {
   return (
     <svg

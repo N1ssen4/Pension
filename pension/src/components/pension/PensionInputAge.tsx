@@ -5,8 +5,11 @@ import { birthYear } from "../../utils/birthyear";
 import { ErrorField } from "../home/ErrorField";
 
 const PensionInputAge = () => {
+  //Initialize context.
   const { setField, user } = useContext(UserContext);
+  //Initialize error states.
   const [errors, setErrors] = useState<Record<string, string>>({});
+  //funtion to look through the errormap and displaying them to the user.
   const validationErrors = useMemo(() => {
     return Object.entries(errors || {}).map(([key, value]) => ({
       key,
@@ -15,24 +18,26 @@ const PensionInputAge = () => {
   }, [errors]);
   const setError = getSetError(errors, setErrors);
 
-  
+  //Funtion for calculation the public pension year.
   const publicPensionYear = () => {
     if (isNaN(birthYear(user.age) + pensionAge())) return "YYYY";
     return birthYear(user.age) + pensionAge();
   };
-
-  const wantedPensionAge = () => {
+  //Funtion for calculation the wanted pension year.
+  const wantedPensionYear = () => {
     if (user?.wantedPensionAge != null)
       if (isNaN(user?.wantedPensionAge)) return "YYYY";
       else return birthYear(user.age) + Number(user?.wantedPensionAge);
     else return "YYYY";
   };
 
+  //Checking that the wanted pension age is not smaller than the age. 
   const PensionAgeCheck = () => {
     const age = user.age != null ? user.age : 0;
     return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
   };
 
+  //calculating the pension age.
   const pensionAge = () => {
     if (birthYear(user.age) <= 1954) {
       return 66;
@@ -48,7 +53,7 @@ const PensionInputAge = () => {
       return 71;
     } else return 72;
   };
-
+  //Updating the wanted pension age.
   const updatePensionAgeAndErrorField = (e: any) => {
     const value = e.target.value;
     setField("wantedPensionAge", value);
@@ -96,7 +101,7 @@ const PensionInputAge = () => {
               </div>
             ) : (
               <div className="font-normal text-[#8E9197]">
-                {wantedPensionAge()}
+                {wantedPensionYear()}
               </div>
             )
           ) : (

@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 
+//ModalProps.
 interface ModalProps {
   isOpen: boolean;
   onclose: () => void;
   children: string;
   id?: string;
 }
-
+//Modal component for user information on the question marks in the app. 
 export const InfoModal: React.FC<ModalProps> = ({
   isOpen,
   onclose,

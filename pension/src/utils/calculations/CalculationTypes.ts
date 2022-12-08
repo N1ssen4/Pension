@@ -1,5 +1,7 @@
 import {z} from 'zod'
 
+
+//-------------------------------Dreamplans egne udregningstypechecks
 export const ZHousingOutput = z.object({
   averageMonthlyInstallmentUntilPension: z.number(),
   debtFactor: z.number(),
@@ -91,6 +93,11 @@ export const ZCalculateSet = z.object({
   version: z.number(),
   parts: z.array(ZCalculate).optional().nullable(),
 });
+//---------------------------------------------
+
+
+
+// -------------------------------------------- Lavet af Mig 
 export const primaryUserData = z.object({
   birthYear: z.number().min(1900).max(2022),
   currentPensionSavings: z.number().min(1).max(10000000),

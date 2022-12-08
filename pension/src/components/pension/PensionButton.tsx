@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import { db } from "../../utils/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
+import Link from "next/link";
 
 const PensionButton = () => {
   const { user, dataIsValid } = useContext(UserContext);
@@ -40,16 +41,24 @@ const PensionButton = () => {
         </div>
       ) : (
         <div>
-          <button
-            disabled={!dataIsValid(user)}
-            className={
-              !dataIsValid(user)
-                ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
-                : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
-            }
-          >
-            Gem ændringer
-          </button>
+          <Link href={"/calendly"}>
+            <button
+              disabled={!dataIsValid(user)}
+              className={
+                !dataIsValid(user)
+                  ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
+                  : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
+              }
+            >
+              Book et møde
+            </button>
+          </Link>
+          <div className="flex justify-center text-[14px] text-[#8E9197] ">
+            Eller prøv{" "}
+            <a href={"https://www.dreamplan.io/"} target="__blank">
+              <div className="ml-1 underline">Dreamplan</div>
+            </a>
+          </div>
         </div>
       )}
     </>

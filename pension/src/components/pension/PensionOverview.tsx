@@ -89,7 +89,6 @@ const PensionOverview = () => {
   };
   //fetching the calculations and getting the coverage ratio from Keylane. 
   const KeylaneResult = async () => {
-    
     const UserDataCheck = CheckUserDataToKeylane.safeParse(currentUser);
     if (UserDataCheck.success) {
       setLoading(true);

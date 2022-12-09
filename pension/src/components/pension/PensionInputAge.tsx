@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
 import { birthYear } from "../../utils/birthyear";
+import { pensionAge } from "../../utils/calculatePensionAge";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 import { ErrorField } from "../home/ErrorField";
 
@@ -21,8 +22,8 @@ const PensionInputAge = () => {
 
   //Funtion for calculation the public pension year.
   const publicPensionYear = () => {
-    if (isNaN(birthYear(user.age) + pensionAge())) return "YYYY";
-    return birthYear(user.age) + pensionAge();
+    if (isNaN(birthYear(user.age) + pensionAge(user.age))) return "YYYY";
+    return birthYear(user.age) + pensionAge(user.age);
   };
   //Funtion for calculation the wanted pension year.
   const wantedPensionYear = () => {
@@ -32,23 +33,6 @@ const PensionInputAge = () => {
     else return "YYYY";
   };
 
-  //calculating the pension age.
-  const pensionAge = () => {
-    if (birthYear(user.age) <= 1954) {
-      return 66;
-    } else if (birthYear(user.age) <= 1955) {
-      return 67;
-    } else if (birthYear(user.age) < 1962) {
-      return 68;
-    } else if (birthYear(user.age) < 1966) {
-      return 69;
-    } else if (birthYear(user.age) < 1970) {
-      return 70;
-    } else if (birthYear(user.age) < 1974) {
-      return 71;
-    } else return 72;
-  };
-  
   //Updating the wanted pension age.
   const updatePensionAgeAndErrorField = (e: any) => {
     const value = e.target.value;
@@ -68,7 +52,7 @@ const PensionInputAge = () => {
             type="number"
             placeholder="Antal år"
             disabled={true}
-            defaultValue={pensionAge()}
+            defaultValue={pensionAge(user.age)}
           />
           <div className="font-normal text-[#8E9197]">
             {publicPensionYear()}

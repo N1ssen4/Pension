@@ -11,6 +11,7 @@ const PensionBottom = () => {
       user?.coverageRatio != null ? Math.round(user.coverageRatio * 100) : ""
     return percent
  },[user])
+ 
   return (
     <div className="text-center">
       <div className="mx-28 -mt-2 font-semibold">Procent af din løn</div>

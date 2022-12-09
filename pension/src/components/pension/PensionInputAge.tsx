@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
 import { birthYear } from "../../utils/birthyear";
+import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 import { ErrorField } from "../home/ErrorField";
 
 const PensionInputAge = () => {
@@ -31,12 +32,6 @@ const PensionInputAge = () => {
     else return "YYYY";
   };
 
-  //Checking that the wanted pension age is not smaller than the age. 
-  const PensionAgeCheck = () => {
-    const age = user.age != null ? user.age : 0;
-    return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
-  };
-
   //calculating the pension age.
   const pensionAge = () => {
     if (birthYear(user.age) <= 1954) {
@@ -53,6 +48,7 @@ const PensionInputAge = () => {
       return 71;
     } else return 72;
   };
+  
   //Updating the wanted pension age.
   const updatePensionAgeAndErrorField = (e: any) => {
     const value = e.target.value;
@@ -88,7 +84,7 @@ const PensionInputAge = () => {
             onBlur={updatePensionAgeAndErrorField}
             defaultValue={user?.wantedPensionAge || 0}
           />
-          {!PensionAgeCheck() ? (
+          {!PensionAgeCheck(user.age, user.wantedPensionAge) ? (
             validationErrors.find(
               (error) => error.key === "wantedPensionAge"
             ) ? (

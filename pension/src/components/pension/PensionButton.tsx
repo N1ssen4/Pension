@@ -3,6 +3,8 @@ import { UserContext } from "../../context";
 import { db } from "../../utils/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 import Link from "next/link";
+import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
+import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 
 const PensionButton = () => {
   //Initialize context 
@@ -13,30 +15,17 @@ const PensionButton = () => {
   const createUser = async () => {
     await addDoc(usercollection, user);
   };
-  //Making sure that the user cannot input a pensionpayment that is more that 80 percent of their salary.
-  const PensionPaymentCheck = () => {
-    const salarylimit = user.salary != null ? user.salary * 0.8 : 0;
-    return user.pensionPayment != null
-      ? user.pensionPayment > salarylimit
-      : false;
-  };
-  //Checking that the users age is not greater that the wanted pension age. 
-  const PensionAgeCheck = () => {
-    const age = user.age != null ? user.age : 0;
-    return user.wantedPensionAge != null ? user.wantedPensionAge < age : false;
-  };
-
 
   return (
     <>
-      {PensionPaymentCheck() ? (
+      {PensionPaymentCheck(user.salary,user.pensionPayment) ? (
         <div className="flex justify-center text-center text-red-500">
           <p>
             Det er ikke muligt at indbetale mere end 80% af sin løn til pension.
             Check venligst dine oplysninger igen.
           </p>
         </div>
-      ) : PensionAgeCheck() ? (
+      ) : PensionAgeCheck(user.age, user.wantedPensionAge) ? (
         <div className="flex justify-center text-center text-red-500">
           <p>
             Det er ikke muligt at sætte din ønsket pensionalder lavere end din

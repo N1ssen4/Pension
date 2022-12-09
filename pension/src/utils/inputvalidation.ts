@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Zod validation schema to validate data bot when going from the 
+// Zod validation schema to validate data bot when going from the
 // inputpage to the pension page and when trying to book a metting on the pension page.
 export const validationSchema = z.object({
   name: z
@@ -41,5 +41,6 @@ export const validationSchema = z.object({
       invalid_type_error: "Påkrævet felt",
     })
     .min(66, { message: "Min 66 år" })
-    .max(100, { message: "Mellem 60 og 100 år" }),
+    .max(100, { message: "Mellem 60 og 100 år" })
+    .optional(),
 });

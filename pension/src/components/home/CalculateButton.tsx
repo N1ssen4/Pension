@@ -1,21 +1,15 @@
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../context";
+import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 
 const CalculateButton = () => {
   //Initialize the context
   const { dataIsValid, user } = useContext(UserContext);
-  //Checking that the user is not paying more than 80 percent of their salary to pension. 
-  const PensionPaymentCheck = () => {
-    const salarylimit = user.salary != null ? user.salary * 0.8 : 0;
-    return user.pensionPayment != null
-      ? user.pensionPayment > salarylimit
-      : false;
-  };
 
   return (
     <>
-      {PensionPaymentCheck() ? (
+      {PensionPaymentCheck(user.salary,user.pensionPayment) ? (
         <div className="flex justify-center text-center text-red-500">
           <p>Det er ikke muligt at indbetale mere end 80% af sin løn til pension. Check venligst dine oplysningerne igen. </p>
         </div>

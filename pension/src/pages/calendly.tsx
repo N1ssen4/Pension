@@ -9,6 +9,7 @@ const calendly = () => {
   return <InlineWidget 
   url="https://calendly.com/dreamplan/intromode"
   prefill={{
+    name: user.name,
     customAnswers: {
         a1: JSON.stringify(user,null,4)
     }

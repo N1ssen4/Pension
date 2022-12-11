@@ -1,24 +1,36 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
-import { db } from "../../utils/firebase-config";
+import { db } from "../../utils/database/trpc-server";
 import { addDoc, collection } from "firebase/firestore";
 import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
+import { validationSchema } from "../../utils/inputvalidation";
 
 const PensionButton = () => {
   //Initialize context 
   const { user, dataIsValid } = useContext(UserContext);
   //Setup for firebase 
   const usercollection = collection(db, "users");
-  //Add a user to Firebase000
+  //Add a user to Firebase
   const createUser = async () => {
     await addDoc(usercollection, user);
   };
+  //Check the userData and then adding it to Firebase if correct. 
+  const CheckUserDataAndAddToFirestore = () => {
+    const userDataScheck = validationSchema.safeParse(user)
+    if (userDataScheck.success){
+      createUser()
+    }
+    else {
+      console.log("ERROR: Not following Dreamplans dataskeleton")
+    }
+  }
+
 
   return (
     <>
-      {PensionPaymentCheck(user.salary,user.pensionPayment) ? (
+      {PensionPaymentCheck(user.salary, user.pensionPayment) ? (
         <div className="flex justify-center text-center text-red-500">
           <p>
             Det er ikke muligt at indbetale mere end 80% af sin løn til pension.
@@ -36,6 +48,7 @@ const PensionButton = () => {
         <div>
           <Link href={"/calendly"}>
             <button
+              onClick={CheckUserDataAndAddToFirestore}
               disabled={!dataIsValid(user)}
               className={
                 !dataIsValid(user)

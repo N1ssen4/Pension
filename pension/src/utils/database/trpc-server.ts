@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {getFirestore} from "@firebase/firestore"
 
-//Firebase config file
+
+//Initialize firebase app
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
@@ -11,7 +12,6 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
-
 const app = initializeApp(firebaseConfig);
-
+//Create a reference to the Firestore
 export const db = getFirestore(app);

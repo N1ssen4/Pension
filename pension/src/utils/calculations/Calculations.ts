@@ -1,8 +1,6 @@
 import { CalculateSet } from "./CalculationTypes";
 import { PayloadSkeleton } from "./KeylanePayloadSkeleton";
 
-
-
 //Calculation function for fetching calculations from Keylane. 
 export const GetCalculations = async (
   keylanePayload: PayloadSkeleton,

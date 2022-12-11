@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import { db } from "../../utils/database/trpc-server";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
@@ -14,12 +14,21 @@ const PensionButton = () => {
   const usercollection = collection(db, "users");
   //Add a user to Firebase
   const createUser = async () => {
-    await addDoc(usercollection, user);
+    const firestoreUser = await addDoc(usercollection, user);
+    localStorage.setItem("FirestoreID", firestoreUser.id);
   };
+  const updateUser = async (id: string) => {
+    const userDoc = doc(db, "users",id);
+    await updateDoc(userDoc, user)
+  }
   //Check the userData and then adding it to Firebase if correct. 
   const CheckUserDataAndAddToFirestore = () => {
     const userDataScheck = validationSchema.safeParse(user)
     if (userDataScheck.success){
+      if (localStorage.getItem("FirestoreID") !== undefined || null) {
+        const LocalStorageid = localStorage.getItem("FirestoreID") ?? ""
+        updateUser(LocalStorageid)
+      } else
       createUser()
     }
     else {

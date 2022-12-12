@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-
+import { XMarkIcon } from "@heroicons/react/24/solid";
 //ModalProps.
 interface ModalProps {
   isOpen: boolean;
@@ -27,15 +27,15 @@ export const InfoModal: React.FC<ModalProps> = ({
           onClick={handeOverlayClick}
           className="flex min-h-full max-w-[375px] items-center mx-auto p-4 text-center"
         >
-          <div className="h-full w-full transform rounded-[25px] bg-white p-4 text-left align-middle shadow-[0_6px_6px_1px_rgba(0,0,0,0.3)] transition-all">
+          <div className="h-full w-full transform rounded-[25px] bg-white px-3 align-middle shadow-[0_6px_6px_1px_rgba(0,0,0,0.3)] transition-all">
             <button
-              className="w-full pb-4 text-right"
+              className="w-full flex justify-end pt-2"
               type="button"
               onClick={() => onclose()}
             >
-              x
+              <XMarkIcon className="w-[15px] h-[15px]"/>
             </button>
-            <div className="h-full pb-4 text-center ">{children}</div>
+            <div className="h-full pb-4 text-center">{children}</div>
           </div>
         </div>
       </div>

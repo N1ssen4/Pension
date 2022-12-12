@@ -14,7 +14,7 @@ const PensionButton = () => {
   const usercollection = collection(db, "users");
   //Add a user to Firebase
   const createUser = async () => {
-    const firestoreUser = await addDoc(usercollection, user);
+    const firestoreUser = await addDoc(usercollection, user)
     localStorage.setItem("FirestoreID", firestoreUser.id);
   };
   const updateUser = async (id: string) => {
@@ -24,8 +24,9 @@ const PensionButton = () => {
   //Check the userData and then adding it to Firebase if correct. 
   const CheckUserDataAndAddToFirestore = () => {
     const userDataScheck = validationSchema.safeParse(user)
+    const firestoreID = localStorage.getItem("FirestoreID")
     if (userDataScheck.success){
-      if (localStorage.getItem("FirestoreID") !== undefined || null) {
+      if (firestoreID) {
         const LocalStorageid = localStorage.getItem("FirestoreID") ?? ""
         updateUser(LocalStorageid)
       } else

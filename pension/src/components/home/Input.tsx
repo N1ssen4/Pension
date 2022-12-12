@@ -31,7 +31,6 @@ const Input = ({
   defaultValue,
   step,
   labelname,
-  submitIndicator,
   currencyField,
   errorField,
   disabled = false,

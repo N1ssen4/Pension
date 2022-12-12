@@ -180,6 +180,7 @@ const PensionOverview = () => {
                 placeholder="pr. måned"
                 onClick={() => setRightFieldInFocus(true)}
                 onBlur={() => setRightFieldInFocus(false)}
+                disabled={true}
               />
               <div className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
                 {numberWithCommas(pensionPaymentOut())} kr. før skat

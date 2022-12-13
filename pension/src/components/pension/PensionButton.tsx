@@ -6,21 +6,12 @@ import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 import { validationSchema } from "../../utils/inputvalidation";
+import { createUser, updateUser } from "../../services/user.service";
 
 const PensionButton = () => {
   //Initialize context 
   const { user, dataIsValid } = useContext(UserContext);
-  //Setup for firebase 
-  const usercollection = collection(db, "users");
-  //Add a user to Firebase
-  const createUser = async () => {
-    const firestoreUser = await addDoc(usercollection, user)
-    localStorage.setItem("FirestoreID", firestoreUser.id);
-  };
-  const updateUser = async (id: string) => {
-    const userDoc = doc(db, "users",id);
-    await updateDoc(userDoc, user)
-  }
+
   //Check the userData and then adding it to Firebase if correct. 
   const CheckUserDataAndAddToFirestore = () => {
     const userDataScheck = validationSchema.safeParse(user)
@@ -28,9 +19,9 @@ const PensionButton = () => {
     if (userDataScheck.success){
       if (firestoreID) {
         const LocalStorageid = localStorage.getItem("FirestoreID") ?? ""
-        updateUser(LocalStorageid)
+        updateUser(LocalStorageid,user)
       } else
-      createUser()
+      createUser(user)
     }
     else {
       console.log("ERROR: Not following Dreamplans dataskeleton")

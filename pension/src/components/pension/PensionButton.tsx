@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
-import { db } from "../../utils/database/tserver";
+import { db } from "../../utils/database/server";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";

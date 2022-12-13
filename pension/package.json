@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test" : "cypress open"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
@@ -37,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "autoprefixer": "^10.4.7",
+    "cypress": "^12.1.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.26.0",
     "eslint-config-next": "13.0.2",

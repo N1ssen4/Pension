@@ -114,9 +114,15 @@ const PensionOverview = () => {
       <div className="flex justify-between text-center">
         <div className="w-[107px]">
           <div className="space-y-5">
-            <ArrowLongDownIcon className="mx-auto h-[25px]" />
-            <label className="font-semibold">Indbetaling</label>
+            <ArrowLongDownIcon
+              data-test-id="arrowDown"
+              className="mx-auto h-[25px]"
+            />
+            <label data-test-id="pensionPaymentIn" className="font-semibold">
+              Indbetaling
+            </label>
             <CurrencyInput
+              data-test-id-input="inputPaymentIn"
               id="pensionPayment"
               name="pensionPayment"
               defaultValue={user?.pensionPayment || 0}
@@ -144,13 +150,22 @@ const PensionOverview = () => {
               </div>
             ) : (
               <>
-                <div className={!leftFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
+                <div
+                  data-test-id="pensionPaymentInText"
+                  className={!leftFieldInFocus ? "mx-3 font-bold" : "mx-3"}
+                >
                   {pensionPayment()} kr. før skat
                 </div>
                 {!leftFieldInFocus ? (
-                  <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
+                  <LockClosedIcon
+                    data-test-id="lockClosedPaymentIn"
+                    className="mx-auto h-[22px] stroke-[#000000] stroke-2"
+                  />
                 ) : (
-                  <LockOpenIcon className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2" />
+                  <LockOpenIcon
+                    data-test-id="lockOpenPaymentIn"
+                    className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2"
+                  />
                 )}
               </>
             )}
@@ -166,8 +181,13 @@ const PensionOverview = () => {
         ) : (
           <div className="w-[107px]">
             <div className="space-y-5">
-              <ArrowLongUpIcon className="mx-auto h-[25px]" />
-              <label className="font-semibold">Udbetaling</label>
+              <ArrowLongUpIcon
+                data-test-id="arrowUp"
+                className="mx-auto h-[25px]"
+              />
+              <label data-test-id="pensionPaymentOut" className="font-semibold">
+                Udbetaling
+              </label>
               <CurrencyInput
                 groupSeparator="."
                 decimalSeparator=","
@@ -182,13 +202,22 @@ const PensionOverview = () => {
                 onBlur={() => setRightFieldInFocus(false)}
                 disabled={true}
               />
-              <div className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}>
+              <div
+                data-test-id="pensionPaymentOutText"
+                className={!rightFieldInFocus ? "mx-3 font-bold" : "mx-3"}
+              >
                 {numberWithCommas(pensionPaymentOut())} kr. før skat
               </div>
               {!rightFieldInFocus ? (
-                <LockClosedIcon className="mx-auto h-[22px] stroke-[#000000] stroke-2" />
+                <LockClosedIcon
+                  data-test-id="lockClosedPaymentOut"
+                  className="mx-auto h-[22px] stroke-[#000000] stroke-2"
+                />
               ) : (
-                <LockOpenIcon className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2" />
+                <LockOpenIcon
+                  data-test-id="lockOpenPaymentOut"
+                  className="mx-auto h-[22px] stroke-[#BEC1CA] stroke-2"
+                />
               )}
             </div>
           </div>

@@ -10,13 +10,14 @@ const CalculateButton = () => {
   return (
     <>
       {PensionPaymentCheck(user.salary,user.pensionPayment) ? (
-        <div className="flex justify-center text-center text-red-500">
+        <div data-test-id="calculateButtonErrorMessage" className="flex justify-center text-center text-red-500">
           <p>Det er ikke muligt at indbetale mere end 80% af sin løn til pension. Check venligst dine oplysningerne igen. </p>
         </div>
       ) : (
         <div className="flex justify-center">
           <Link href={"/pension"}>
             <button
+              data-test-id="calculateButton"
               disabled={!dataIsValid(user)}
               className={
                 !dataIsValid(user)

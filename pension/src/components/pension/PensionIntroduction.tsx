@@ -10,7 +10,7 @@ const PensionIntroduction = () => {
   return (
     <>
       <div className="mx-12 space-y-5 ">
-        <div className="mx-8 flex justify-center text-[20px] font-semibold">
+        <div data-test-id="pensionPageTitle" className="mx-8 flex justify-center text-[20px] font-semibold">
           Pension
           <button onClick={toggleModal}>
             <QuestionMarkCircleIcon className="my-auto ml-2 h-[17px] w-[17px] " />
@@ -19,7 +19,7 @@ const PensionIntroduction = () => {
         <InfoModal isOpen={isModalOpen} onclose={toggleModal}>
           Pensionsinfo
         </InfoModal>
-        <div className="text-center">
+        <div data-test-id="pensionPageText" className="text-center">
           Her kan du se konsekvenserne af at ændre din pensionsalder:
         </div>
       </div>

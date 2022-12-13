@@ -15,8 +15,8 @@ const PensionBottom = () => {
  
   return (
     <div className="text-center">
-      <div className="mx-28 -mt-2 font-semibold">Procent af din løn</div>
-      <div className="m-8 mx-12">
+      <div data-test-id="paymentPercent" className="mx-28 -mt-2 font-semibold">Procent af din løn</div>
+      <div data-test-id="paymentPercentOutText" className="m-8 mx-12">
         Din pensionsudbetaling er svarende til {pensionCoverageRatioPercent}% af
         din løn på pensionstidspunktet
       </div>

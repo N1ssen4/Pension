@@ -44,8 +44,11 @@ const PensionInputAge = () => {
     <>
       <div className="flex justify-between text-center font-semibold">
         <div>
-          <label className="mx-6 flex">Folkepensions-alder</label>
+          <label data-test-id="publicPensionAge" className="mx-6 flex">
+            Folkepensions-alder
+          </label>
           <input
+            data-test-id-input="publicPensionAge"
             id="publicPensionAge"
             name="publicPensionAge"
             className="w-[145px] rounded-full border py-2 text-center font-bold"
@@ -54,13 +57,19 @@ const PensionInputAge = () => {
             disabled={true}
             defaultValue={pensionAge(user.age)}
           />
-          <div className="font-normal text-[#8E9197]">
+          <div
+            data-test-id="publicPensionYear"
+            className="font-normal text-[#8E9197]"
+          >
             {publicPensionYear()}
           </div>
         </div>
         <div>
-          <label className="mx-6 flex">Ønsket Pensionsalder</label>
+          <label data-test-id="wantedPensionAge" className="mx-6 flex">
+            Ønsket Pensionsalder
+          </label>
           <input
+            data-test-id-input="wantedPensionAge"
             name="wantedPensionAge"
             className="w-[145px] rounded-full border py-2 text-center font-normal focus:font-bold"
             type="number"
@@ -80,7 +89,10 @@ const PensionInputAge = () => {
                 )}
               </div>
             ) : (
-              <div className="font-normal text-[#8E9197]">
+              <div
+                data-test-id="wantedPensionYear"
+                className="font-normal text-[#8E9197]"
+              >
                 {wantedPensionYear()}
               </div>
             )

@@ -42,6 +42,7 @@ const Input = ({
     <div className="grid place-content-center p-5">
       <div className="grid">
         <label
+          data-test-id={name}
           className="flex justify-center gap-2 font-semibold"
           htmlFor={name}
         >
@@ -79,6 +80,7 @@ const Input = ({
         {!currencyField ? (
           <>
             <input
+              data-test-id-input={name}
               className="w-[160px] rounded-full border py-2 text-center"
               placeholder={placeholder}
               type={type}
@@ -89,11 +91,12 @@ const Input = ({
               defaultValue={defaultValue}
               readOnly={readOnly}
               disabled={disabled}
-              onWheel={event => event.currentTarget.blur()}
+              onWheel={(event) => event.currentTarget.blur()}
             />
           </>
         ) : (
           <CurrencyInput
+            data-test-id-input={name}
             disabled={disabled}
             placeholder={placeholder}
             type={type}

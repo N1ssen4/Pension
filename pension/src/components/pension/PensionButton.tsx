@@ -49,6 +49,7 @@ const PensionButton = () => {
         <div>
           <Link href={"/calendly"}>
             <button
+              data-test-id="calendlyButton"
               onClick={CheckUserDataAndAddToFirestore}
               disabled={!dataIsValid(user)}
               className={
@@ -60,8 +61,8 @@ const PensionButton = () => {
               Book et møde
             </button>
           </Link>
-          <div className="flex justify-center text-[14px] text-[#8E9197] ">
-            Eller prøv{" "}
+          <div data-test-id="buttonText" className="flex justify-center text-[14px] text-[#8E9197] ">
+            Eller prøv
             <a href={"https://www.dreamplan.io/"} target="__blank">
               <div className="ml-1 underline">Dreamplan</div>
             </a>

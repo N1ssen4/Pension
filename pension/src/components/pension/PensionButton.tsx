@@ -33,14 +33,14 @@ const PensionButton = () => {
     <>
       {PensionPaymentCheck(user.salary, user.pensionPayment) ? (
         <div className="flex justify-center text-center text-red-500">
-          <p>
+          <p data-test-id="EightyPercentError">
             Det er ikke muligt at indbetale mere end 80% af sin løn til pension.
             Check venligst dine oplysninger igen.
           </p>
         </div>
       ) : PensionAgeCheck(user.age, user.wantedPensionAge) ? (
         <div className="flex justify-center text-center text-red-500">
-          <p>
+          <p data-test-id="AgeCheckError">
             Det er ikke muligt at sætte din ønsket pensionalder lavere end din
             alder. Check venligst dine oplysninger igen.
           </p>
@@ -53,7 +53,7 @@ const PensionButton = () => {
               onClick={CheckUserDataAndAddToFirestore}
               disabled={!dataIsValid(validationSchemaPensionPage, user)}
               className={
-                !dataIsValid(validationSchemaPensionPage,user)
+                !dataIsValid(validationSchemaPensionPage, user)
                   ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
                   : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
               }

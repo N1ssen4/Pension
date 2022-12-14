@@ -141,7 +141,7 @@ const PensionOverview = () => {
             {validationErrors.find(
               (error) => error.key === "pensionPayment"
             ) ? (
-              <div className="relative">
+              <div data-test-id="inputPaymentInError" className="relative">
                 {ErrorField(
                   validationErrors.find(
                     (error) => error.key === "pensionPayment"

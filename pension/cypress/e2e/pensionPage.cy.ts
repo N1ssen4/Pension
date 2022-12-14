@@ -1,3 +1,5 @@
+import cypress from "cypress";
+
 describe("Simulating user typing valid inputs and clicking button", () => {
   it("should load", () => {
     cy.visit("");
@@ -81,20 +83,96 @@ describe("Simulating user typing valid inputs and clicking button", () => {
     cy.get('[data-test-id="lockClosedPaymentIn"]').should("be.visible");
     cy.get('[data-test-id="lockClosedPaymentOut"]').should("be.visible");
 
-    //PensionDiagram 
+    //PensionDiagram
     cy.get('[data-test-id="pensionPaymentPercentIn"]').should("be.visible");
     cy.get('[data-test-id="pensionPaymentPercentOut"]').should("be.visible");
-    
+
     //PensionBottom
-    cy.get('[data-test-id="paymentPercent"]').should("have.text", "Procent af din løn");
+    cy.get('[data-test-id="paymentPercent"]').should(
+      "have.text",
+      "Procent af din løn"
+    );
     cy.get('[data-test-id="paymentPercentOutText"]').should(
       "have.text",
       "Din pensionsudbetaling er svarende til % af din løn på pensionstidspunktet"
     );
-    
+
     //PensionButton
-    cy.get('[data-test-id="calendlyButton"]').should("be.enabled");
-    cy.get('[data-test-id="buttonText"]').should("have.text", "Eller prøvDreamplan");
+    cy.get('[data-test-id="calendlyButton"]').should("be.disabled");
+    cy.get('[data-test-id="buttonText"]').should(
+      "have.text",
+      "Eller prøvDreamplan"
+    );
+  });
+});
+
+describe("Simulating the user making inputs that are invalid", () => {
+  it("should load", () => {
+    cy.visit("");
+  });
+  it("should load all the elements on pension page correctly", () => {
+    cy.visit("");
+
+    cy.get('[data-test-id-input="name"]')
+      .type("TestUser")
+      .should("have.value", "TestUser");
+    cy.get('[data-test-id-input="age"]').type("35").should("have.value", "35");
+    cy.get('[data-test-id-input="salary"]')
+      .type("35000")
+      .should("have.value", "35.000");
+    cy.get('[data-test-id-input="pensionSaving"]')
+      .type("250000")
+      .should("have.value", "250.000");
+    cy.get('[data-test-id-input="pensionPayment"]')
+      .type("4000")
+      .should("have.value", "4.000");
+    cy.get('[data-test-id="calculateButton"]').should("be.enabled");
+    cy.get('[data-test-id="calculateButton"]').click();
+    cy.url().should("match", /pension/);
+    cy.visit("/pension/");
+
+    //AgeCheckError
+    cy.get('[data-test-id-input="wantedPensionAge"]')
+      .clear()
+      .type("10")
+      .blur()
+      .get('[data-test-id="wantedPensionAgeError2"]')
+      .should("have.text", "Skal være højere end din alder");
+    cy.get('[data-test-id="AgeCheckError"]').should(
+      "have.text",
+      "Det er ikke muligt at sætte din ønsket pensionalder lavere end din alder. Check venligst dine oplysninger igen."
+    );
+    //Age too high and low error message
+    cy.get('[data-test-id-input="wantedPensionAge"]')
+      .clear()
+      .type("100")
+      .blur()
+      .get('[data-test-id="wantedPensionAgeError"]')
+      .should("have.text", " Mellem 60 og 87 år ");
+    cy.get('[data-test-id-input="wantedPensionAge"]')
+      .clear()
+      .type("65")
+      .blur()
+      .get('[data-test-id="wantedPensionAgeError"]')
+      .should("have.text", " Min 66 år ");
+    cy.get('[data-test-id="calendlyButton"]').should("be.disabled");
+
+    //PensionPaymentIn error
+    cy.get('[data-test-id-input="wantedPensionAge"]').clear().type("70").blur();
+    cy.get('[data-test-id-input="inputPaymentIn"]').clear().type("0").blur();
+    cy.get('[data-test-id="inputPaymentInError"]').should(
+      "have.text",
+      " Feltet skal have en værdi højere end 0 kr. "
+    );
+    cy.get('[data-test-id-input="inputPaymentIn"]')
+      .clear()
+      .type("100000")
+      .blur();
+    cy.get('[data-test-id="EightyPercentError"]').should(
+      "have.text",
+      "Det er ikke muligt at indbetale mere end 80% af sin løn til pension. Check venligst dine oplysninger igen."
+    );
+    
   });
 });
 export {};

@@ -81,7 +81,7 @@ const PensionInputAge = () => {
             validationErrors.find(
               (error) => error.key === "wantedPensionAge"
             ) ? (
-              <div className="relative ">
+              <div data-test-id="wantedPensionAgeError" className="relative ">
                 {ErrorField(
                   validationErrors.find(
                     (error) => error.key === "wantedPensionAge"
@@ -97,7 +97,10 @@ const PensionInputAge = () => {
               </div>
             )
           ) : (
-            <div className="text-sm text-red-700">
+            <div
+              data-test-id="wantedPensionAgeError2"
+              className="text-sm text-red-700"
+            >
               <p>Skal være højere end din alder</p>
             </div>
           )}

@@ -1,4 +1,4 @@
-import { validationSchema } from "./inputvalidation";
+import { validationSchemaPensionPage } from "./inputvalidation";
 import { fromZodError } from "zod-validation-error";
 import { ZodError } from "zod";
 
@@ -10,7 +10,7 @@ export const errorHandler = (
 ) => {
   const { key, value } = keyValue;
   try {
-    validationSchema.pick({ [key]: true }).parse({ [key]: value });
+    validationSchemaPensionPage.pick({ [key]: true }).parse({ [key]: value });
 
     if (errors) {
       delete errors[key];

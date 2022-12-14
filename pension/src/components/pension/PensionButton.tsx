@@ -5,7 +5,7 @@ import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
-import { validationSchema } from "../../utils/inputvalidation";
+import { validationSchemaPensionPage } from "../../utils/inputvalidation";
 import { createUser, updateUser } from "../../services/user.service";
 
 const PensionButton = () => {
@@ -14,7 +14,7 @@ const PensionButton = () => {
 
   //Check the userData and then adding it to Firebase if correct. 
   const CheckUserDataAndAddToFirestore = () => {
-    const userDataScheck = validationSchema.safeParse(user)
+    const userDataScheck = validationSchemaPensionPage.safeParse(user);
     const firestoreID = localStorage.getItem("FirestoreID")
     if (userDataScheck.success){
       if (firestoreID) {
@@ -51,9 +51,9 @@ const PensionButton = () => {
             <button
               data-test-id="calendlyButton"
               onClick={CheckUserDataAndAddToFirestore}
-              disabled={!dataIsValid(user)}
+              disabled={!dataIsValid(validationSchemaPensionPage, user)}
               className={
-                !dataIsValid(user)
+                !dataIsValid(validationSchemaPensionPage,user)
                   ? "h-[40px] w-[178px] rounded-[25px] border bg-[#a4a4d6] p-2 text-white"
                   : "h-[40px] w-[178px] rounded-[25px] border bg-[#0700F7] p-2 text-white"
               }
@@ -61,7 +61,10 @@ const PensionButton = () => {
               Book et møde
             </button>
           </Link>
-          <div data-test-id="buttonText" className="flex justify-center text-[14px] text-[#8E9197] ">
+          <div
+            data-test-id="buttonText"
+            className="flex justify-center text-[14px] text-[#8E9197] "
+          >
             Eller prøv
             <a href={"https://www.dreamplan.io/"} target="__blank">
               <div className="ml-1 underline">Dreamplan</div>

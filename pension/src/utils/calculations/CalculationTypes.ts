@@ -105,7 +105,7 @@ export const primaryUserData = z.object({
   currentPensionSavings: z.number().min(1).max(10000000),
   monthlyPensionPayment: z.number().min(1).max(1000000),
   monthlySalary: z.number().min(1).max(1000000),
-  pensionAge: z.number().min(66).max(100)
+  pensionAge: z.number().min(66).max(87)
 })
 
 export const shareHouseAndLiabilityUserData = z.object({

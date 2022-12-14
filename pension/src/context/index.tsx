@@ -5,9 +5,9 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { z } from "zod";
+import { z, ZodObject } from "zod";
 import { User } from "../types/User";
-import { validationSchema } from "../utils/inputvalidation";
+import { validationSchemaPensionPage } from "../utils/inputvalidation";
 
 //Usercontextfile where all the context functions are defined. 
 type TUserContext = {
@@ -15,7 +15,7 @@ type TUserContext = {
   setUser: (user: User) => void;
   setField: (name: string, value: any) => void;
   checkValidation: (key: string, value: any) => void;
-  dataIsValid: (user: User) => boolean | undefined;
+  dataIsValid: (schema: any, user: User) => boolean | undefined;
   errors?: Record<string, string>;
   setErrors?: Dispatch<SetStateAction<Record<string, string>>>;
 };
@@ -58,7 +58,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   //checking if the data on the individual inputs are valid and if not throwing an error.
   const checkValidation = (key: string, value: any) => {
     try {
-      validationSchema.pick({ [key]: true }).parse({
+      validationSchemaPensionPage.pick({ [key]: true }).parse({
         [key]: value,
       });
     } catch (err) {
@@ -68,9 +68,9 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
   //funtion that checks if the users data is correct according to the validation schema. 
-  const dataIsValid = (user: User) => {
+  const dataIsValid = (Schema: any , user: User) => {
     try {
-      validationSchema.parse(user);
+      Schema.parse(user);
       return true;
     } catch (err) {
       if (err instanceof z.ZodError) {

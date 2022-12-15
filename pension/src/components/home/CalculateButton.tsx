@@ -17,7 +17,7 @@ const CalculateButton = () => {
         >
           <p>
             Det er ikke muligt at indbetale mere end 80% af sin løn til pension.
-            Check venligst dine oplysningerne igen.{" "}
+            Check venligst dine oplysningerne igen.
           </p>
         </div>
       ) : (

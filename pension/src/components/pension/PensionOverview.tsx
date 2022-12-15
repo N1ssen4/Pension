@@ -189,6 +189,7 @@ const PensionOverview = () => {
                 Udbetaling
               </label>
               <CurrencyInput
+                data-test-id-input="inputPaymentOut"
                 groupSeparator="."
                 decimalSeparator=","
                 value={pensionPaymentOut()}

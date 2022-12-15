@@ -1,4 +1,3 @@
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
 import React, { useContext, useMemo } from 'react'
 import { UserContext } from '../../context'
 import PensionButton from './PensionButton'
@@ -14,7 +13,7 @@ const PensionBottom = () => {
  },[user])
  
   return (
-    <div className="text-center">
+    <div data-test-id="pensionBottomWrapper" className="text-center">
       <div data-test-id="paymentPercent" className="mx-28 -mt-2 font-semibold">Procent af din løn</div>
       <div data-test-id="paymentPercentOutText" className="m-8 mx-12">
         Din pensionsudbetaling er svarende til {pensionCoverageRatioPercent}% af

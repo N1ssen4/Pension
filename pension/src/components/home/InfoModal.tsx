@@ -35,7 +35,7 @@ export const InfoModal: React.FC<ModalProps> = ({
             >
               <XMarkIcon className="w-[15px] h-[15px]"/>
             </button>
-            <div className="h-full pb-4 text-center">{children}</div>
+            <div data-test-id="modalText" className="h-full pb-4 text-center">{children}</div>
           </div>
         </div>
       </div>

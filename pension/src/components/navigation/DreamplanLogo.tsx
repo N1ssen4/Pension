@@ -4,6 +4,7 @@ import React from 'react'
 const DreamplanLogo = () => {
   return (
     <svg
+      data-test-id="dreamplanLogo"
       width="60"
       height="56"
       viewBox="0 0 60 56"

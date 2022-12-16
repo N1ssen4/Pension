@@ -56,6 +56,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
         try {
           await getPensionInfo(apiToken);
           await markExported(apiToken);
+          console.log("Got here")
           res.status(200).end();
         } catch (err) {
             console.log(err);

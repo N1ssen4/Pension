@@ -48,33 +48,27 @@ const Input = ({
         >
           {labelname}
           <div className="my-auto">
-            <button onClick={toggleModal} key={name}>
-              <QuestionMarkCircleIcon
-                id="navn"
-                className="h-[17px] w-[17px] stroke-[#8E9197]"
-              />
-            </button>
+            {name !== "name" && name !== "age" ? (
+              <button onClick={toggleModal} key={name}>
+                <QuestionMarkCircleIcon
+                  id="navn"
+                  className="h-[17px] w-[17px] stroke-[#8E9197]"
+                />
+              </button>
+            ) : null}
           </div>
         </label>
-        {name === "name" ? (
+        {name === "salary" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
-            Navn
-          </InfoModal>
-        ) : name === "age" ? (
-          <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
-            alder
-          </InfoModal>
-        ) : name === "salary" ? (
-          <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
-            løn
+            Tjek din lønseddel hvis du er i tvivl
           </InfoModal>
         ) : name === "pensionSaving" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
-            pensionsopsparing
+            Tjek penionsinfo.dk hvis du ikke ved det.
           </InfoModal>
         ) : name === "pensionPayment" ? (
           <InfoModal id={name} isOpen={isModalOpen} onclose={toggleModal}>
-            pensionsindbetaling
+            Tjek din lønseddel hvis du er i tvivl.
           </InfoModal>
         ) : null}
         {!currencyField ? (

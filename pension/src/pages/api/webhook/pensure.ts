@@ -65,10 +65,6 @@ export default async function Handler(
       await getPensionInfo(apiToken);
       await markExported(apiToken);
 
-      if (typeof window !== "undefined"){
-        localStorage.setItem("pensureResponse", JSON.stringify(getPensionInfo(apiToken)))
-      }
-
       res.status(200).end();
     } catch (err) {
       console.log(err);

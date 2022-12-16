@@ -32,8 +32,18 @@ export const PensureLinkButton = ({forwardurl} : {forwardurl: string}) => {
   }
   
   return (
-    <button onClick={onClick}>
-      Hent dine pensionsoplysninger fra Pensure her
-    </button>
+    <>
+      <div className="text-center">
+        Hent automatisk din pensionsdata ved at benytte vores samarbejdspartner Pensure: 
+      </div>
+      <div className="flex justify-center">
+        <button
+          className="h-[30px] w-[100px] rounded-[25px] border bg-[#0700F7] text-white"
+          onClick={onClick}
+        >
+          Pensure
+        </button>
+      </div>
+    </>
   );
 };

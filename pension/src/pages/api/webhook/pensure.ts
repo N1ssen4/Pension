@@ -1,10 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useMemo } from "react";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
-
-
 
 const fetchPensureData = (
   url: string,
@@ -46,8 +43,7 @@ export async function getPensionInfo(apiToken: string) {
   );
 
   const JSONpensureResponse = await pensureResponse.json();
-  
-  return JSONpensureResponse
+  console.log(JSONpensureResponse)
 }
 
 export default async function Handler(
@@ -68,7 +64,8 @@ export default async function Handler(
       res.status(200).end();
     } catch (err) {
       console.log(err);
-      res.status(500).end();
+
+      res.status(500).json({ errormessage: (err as any)?.message });
     }
   }
   res.status(405).end();

@@ -49,6 +49,8 @@ export default async function Handler(
 ) {
   if (req.method === "POST") {
     const { apiToken, identity } = req.body;
+    console.log(apiToken);
+    console.log(identity);
 
     if (!apiToken || !identity) {
       res.status(400).json({ message: "Missing fields" });
@@ -64,5 +66,5 @@ export default async function Handler(
       res.status(500).end();
     }
   }
-  else {console.log("nothing happens")}
+  res.status(405).end();
 }

@@ -29,6 +29,7 @@ async function markExported(apiToken: string, failureMessage?: string) {
     url = `${url}?failed=${failureMessage}`;
   }
 
+  console.log(apiToken)
   const response = await fetchPensureData(url, apiToken, "POST");
   return response;
 }
@@ -49,8 +50,6 @@ export default async function Handler(
 ) {
   if (req.method === "POST") {
     const { apiToken, identity } = req.body;
-    console.log(apiToken);
-    console.log(identity);
 
     if (!apiToken || !identity) {
       res.status(400).json({ message: "Missing fields" });

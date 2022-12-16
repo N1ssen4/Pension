@@ -5,7 +5,7 @@ import { UserContext } from "../../../context";
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
 
- const { setField } = useContext(UserContext);
+
 
 const fetchPensureData = (
   url: string,
@@ -13,6 +13,7 @@ const fetchPensureData = (
   method: "GET" | "POST",
   body?: any
 ) => {
+  
   const params: RequestInit = {
     method: method,
     headers: {
@@ -39,14 +40,14 @@ async function markExported(apiToken: string, failureMessage?: string) {
 }
 
 export async function getPensionInfo(apiToken: string) {
+  const { setField } = useContext(UserContext);
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
   );
   const JSONpensureResponse = await pensureResponse.json();
-  const pensionPayment = JSONpensureResponse.PensionProviders.Schemes
-  setField("pensure",pensionPayment)
+  setField("Pensure", JSONpensureResponse)
 }
 
 export default async function Handler(

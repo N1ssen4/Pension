@@ -41,25 +41,27 @@ export async function getPensionInfo(apiToken: string) {
   );
   const JSONpensureResponse = await pensureResponse.json();
   console.log(JSON.stringify(JSONpensureResponse));
-
 }
 
-export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST'){
-        const {apiToken, identity} = req.body;
+export default async function Handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "POST") {
+    const { apiToken, identity } = req.body;
 
-        if (!apiToken || !identity) {
-
-            res.status(400).json({message: 'Missing fields'});
-            return
-        }
-        try {
-          await getPensionInfo(apiToken);
-          await markExported(apiToken);
-          console.log("Got here")
-          res.status(200).end();
-        } catch (err) {
-            console.log(err);
-        }
-    } 
+    if (!apiToken || !identity) {
+      res.status(400).json({ message: "Missing fields" });
+      return;
+    }
+    try {
+      await getPensionInfo(apiToken);
+      await markExported(apiToken);
+      console.log("Got here");
+      res.status(200).end();
+    } catch (err) {
+      console.log(err);
+      res.status(500).end();
+    }
+  }
 }

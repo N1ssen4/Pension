@@ -42,7 +42,12 @@ export async function getPensionInfo(apiToken: string) {
   );
   const JSONpensureResponse = await pensureResponse.json(); 
   const data = JSON.stringify(JSONpensureResponse)
-  localStorage.setItem("pensureData", data)
+  if (typeof window !== "undefined"){
+    localStorage.setItem("pensureData", data)
+  }
+  else {
+    console.log("cannot do that Mads")
+  }
 }
 
 export default async function Handler(

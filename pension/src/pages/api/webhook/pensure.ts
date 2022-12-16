@@ -41,7 +41,7 @@ export async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const JSONpensureResponse = await pensureResponse.json();
-  const pensionPayment = JSONpensureResponse.PensionProviders.Schemes.Payment
+  const pensionPayment = JSONpensureResponse.PensionProviders.Schemes
   console.log(pensionPayment)
 }
 

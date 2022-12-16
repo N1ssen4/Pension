@@ -39,15 +39,9 @@ export async function getPensionInfo(apiToken: string) {
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
+  ).then((pensureResponse) =>
+    localStorage.setItem("pensureData", JSON.stringify(pensureResponse.json()))
   );
-  const JSONpensureResponse = await pensureResponse.json().finally(() => {
-    const data = JSON.stringify(JSONpensureResponse);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("pensureData", data);
-    } else {
-      console.log("cannot do that Mads");
-    }
-  });
 }
 
 export default async function Handler(

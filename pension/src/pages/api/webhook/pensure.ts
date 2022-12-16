@@ -64,4 +64,5 @@ export default async function Handler(
       res.status(500).end();
     }
   }
+  else {console.log("nothing happens")}
 }

@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
+
+ const { setField } = useContext(UserContext);
 
 const fetchPensureData = (
   url: string,
@@ -67,8 +71,5 @@ export default async function Handler(
     }
   }
   res.status(405).end();
-}
-function setField() {
-  throw new Error("Function not implemented.");
 }
 

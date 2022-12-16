@@ -33,15 +33,15 @@ async function markExported(apiToken: string, failureMessage?: string) {
   return response;
 }
 
-export async function getPensionInfo(apiToken: string) {
+export async function getPensionInfo(apiToken: string, uid:string) {
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
   );
   const JSONpensureResponse = await pensureResponse.json();
+  console.log(JSON.stringify(JSONpensureResponse));
 
-  console.log(JSONpensureResponse);
 }
 
 export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
@@ -54,7 +54,7 @@ export default async function Handler(req: NextApiRequest, res: NextApiResponse)
             return
         }
         try {
-          await getPensionInfo(apiToken);
+          await getPensionInfo(apiToken, identity);
           await markExported(apiToken);
           console.log("Got here")
           res.status(200).end();

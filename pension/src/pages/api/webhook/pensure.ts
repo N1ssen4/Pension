@@ -42,7 +42,7 @@ export async function getPensionInfo(apiToken: string) {
   );
   const JSONpensureResponse = await pensureResponse.json();
   const pensionPayment = JSONpensureResponse.PensionProviders.Schemes
-  console.log(pensionPayment)
+  setField("pensure",pensionPayment)
 }
 
 export default async function Handler(
@@ -68,3 +68,7 @@ export default async function Handler(
   }
   res.status(405).end();
 }
+function setField() {
+  throw new Error("Function not implemented.");
+}
+

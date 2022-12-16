@@ -5,8 +5,9 @@ import CalculateButton from "../components/home/CalculateButton";
 import { InputProps } from "../components/home/Input";
 import InputMapper from "../components/home/InputMapper";
 import Introduction from "../components/home/Introduction";
+import { PensureLinkButton } from "../components/pensure/pensure";
 
-//HomePage. Here I initialize the inputs and the userdata. 
+//HomePage. Here I initialize the inputs and the userdata.
 const Home: NextPage = () => {
   const fielddata: InputProps[] = useMemo(() => {
     const user =
@@ -61,8 +62,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="grid place-content-center p-4">
-        <div className="min-h-[80vh] max-w-[375px] rounded-2xl border p-5 shadow-xl space-y-3">
+        <div className="min-h-[80vh] max-w-[375px] space-y-3 rounded-2xl border p-5 shadow-xl">
           <Introduction />
+          <PensureLinkButton forwardurl={"/"} />
           <InputMapper data={fielddata} />
           <CalculateButton />
         </div>

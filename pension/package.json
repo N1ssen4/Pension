@@ -7,7 +7,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "test" : "cypress open"
+    "test": "cypress open"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
@@ -25,6 +25,7 @@
     "react-hook-form": "^7.40.0",
     "react-spinners": "^0.13.7",
     "trpc": "^0.11.3",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11",
     "zod": "^3.18.0",
     "zod-error": "^1.0.5",
@@ -35,6 +36,7 @@
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "autoprefixer": "^10.4.7",

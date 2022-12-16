@@ -20,6 +20,7 @@ const fetchPensureData = (
   if (body) {
     params.body = body;
   }
+  console.log(apiToken)
   return fetch(url, params);
 };
 async function markExported(apiToken: string, failureMessage?: string) {
@@ -29,7 +30,6 @@ async function markExported(apiToken: string, failureMessage?: string) {
     url = `${url}?failed=${failureMessage}`;
   }
 
-  console.log(apiToken)
   const response = await fetchPensureData(url, apiToken, "POST");
   return response;
 }

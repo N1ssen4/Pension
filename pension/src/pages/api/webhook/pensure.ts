@@ -41,8 +41,8 @@ export async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const JSONpensureResponse = await pensureResponse.json();
-  
-  localStorage.setItem("PensureData", JSONpensureResponse)
+  localStorage.setItem("PensureData", JSON.stringify(JSONpensureResponse))
+
 }
 
 export default async function Handler(

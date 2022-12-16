@@ -39,9 +39,10 @@ export async function getPensionInfo(apiToken: string) {
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
-  ).then((pensureResponse) =>
-    localStorage.setItem("pensureData", JSON.stringify(pensureResponse.json()))
   );
+  const JSONpensureResponse = await pensureResponse.json();
+  const pensionPayment = JSONpensureResponse.PensionProviders.Schemes.Payment
+  console.log(pensionPayment)
 }
 
 export default async function Handler(

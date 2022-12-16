@@ -6,7 +6,7 @@ export const PensureLinkButton = ({forwardurl} : {forwardurl: string}) => {
   const pensureRedirectUrl = useMemo(() => {
     if (typeof window !== "undefined")
     {
-      let webhookUrl = "/webhook/pensure";
+      let webhookUrl = "/api/webhook/pensure";
       if (webhookUrl?.slice(0, 4) !== "http") {
         webhookUrl = `${window.location.origin}/${webhookUrl}`;
       }

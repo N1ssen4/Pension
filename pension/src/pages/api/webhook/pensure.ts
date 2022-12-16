@@ -20,7 +20,7 @@ const fetchPensureData = (
   if (body) {
     params.body = body;
   }
-  console.log(apiToken)
+
   return fetch(url, params);
 };
 async function markExported(apiToken: string, failureMessage?: string) {
@@ -41,7 +41,7 @@ export async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const JSONpensureResponse = await pensureResponse.json();
-  console.log(JSON.stringify(JSONpensureResponse));
+  console.log(JSON.stringify(JSONpensureResponse), null, 4);
 }
 
 export default async function Handler(
@@ -58,7 +58,7 @@ export default async function Handler(
     try {
       await getPensionInfo(apiToken);
       await markExported(apiToken);
-      console.log("Got here");
+
       res.status(200).end();
     } catch (err) {
       console.log(err);

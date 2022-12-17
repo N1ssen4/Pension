@@ -41,7 +41,9 @@ export async function getPensionInfo(apiToken: string) {
     apiToken,
     "GET"
   );
-  return pensureResponse
+
+  const JSONpensureResponse = await pensureResponse.json();
+  return JSONpensureResponse
 }
 
 export default async function Handler(
@@ -59,7 +61,7 @@ export default async function Handler(
       await getPensionInfo(apiToken);
       await markExported(apiToken);
 
-      res.status(200).json(getPensionInfo(apiToken));
+      res.status(200).json(res)
     } catch (err) {
       console.log(err);
 

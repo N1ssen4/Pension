@@ -64,7 +64,7 @@ const Home: NextPage = () => {
       <main className="grid place-content-center p-4">
         <div className="min-h-[80vh] max-w-[375px] space-y-3 rounded-2xl border p-5 shadow-xl">
           <Introduction />
-          <PensureLinkButton forwardurl={"/"} />
+          <PensureLinkButton forwardurl={"/pensure"} />
           <InputMapper data={fielddata} />
           <CalculateButton />
         </div>

@@ -35,6 +35,12 @@ const CalculateButton = () => {
               Beregn
             </button>
           </Link>
+          <Link href={"/pensure"}>
+            <button
+            >
+              pensure page
+            </button>
+          </Link>
         </div>
       )}
     </>

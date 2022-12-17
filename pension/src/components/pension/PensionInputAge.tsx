@@ -21,16 +21,18 @@ const PensionInputAge = () => {
 
   //Funtion for calculation the public pension year.
   const publicPensionYear = () => {
-    if (user.birthYear !== null) {
-      if (isNaN(user.birthYear)) return "YYYY";
-      else return user.birthYear + pensionAge();
+    if (user?.birthYear !== null) {
+      if (isNaN(user?.birthYear)) {
+        return "YYYY";
+      } else return user?.birthYear + pensionAge();
     } else return "YYYY";
   };
   //Funtion for calculation the wanted pension year.
   const wantedPensionYear = () => {
-    if (user?.wantedPensionAge != null && user.birthYear != null) {
-      if (isNaN(user.wantedPensionAge)) return "YYYY";
-      else return user.birthYear + Number(user?.wantedPensionAge);
+    if (user?.wantedPensionAge != null && user?.birthYear != null) {
+      if (isNaN(user?.wantedPensionAge)) {
+        return "YYYY";
+      } else return user?.birthYear + user?.wantedPensionAge;
     } else return "YYYY";
   };
 

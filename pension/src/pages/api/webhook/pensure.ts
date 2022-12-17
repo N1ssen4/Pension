@@ -41,9 +41,7 @@ export async function getPensionInfo(apiToken: string) {
     apiToken,
     "GET"
   );
-
-  const JSONpensureResponse = await pensureResponse.json();
-  return JSONpensureResponse
+  return pensureResponse
 }
 
 export default async function Handler(

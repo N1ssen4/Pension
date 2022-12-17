@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
-import { db } from "../../utils/database/server";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import { PensionPaymentCheck } from "../../utils/pensionPaymentCheck";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
@@ -38,7 +36,7 @@ const PensionButton = () => {
             Check venligst dine oplysninger igen.
           </p>
         </div>
-      ) : PensionAgeCheck(user.age, user.wantedPensionAge) ? (
+      ) : PensionAgeCheck(user.birthYear, user.wantedPensionAge) ? (
         <div className="flex justify-center text-center text-red-500">
           <p data-test-id="AgeCheckError">
             Det er ikke muligt at sætte din ønsket pensionalder lavere end din

@@ -1,7 +1,7 @@
 //Usertype
 export type User = {
   name: string;
-  age: number | null;
+  birthYear: number | null;
   salary: number | null;
   pensionSaving: number | null;
   pensionPayment: number | null;

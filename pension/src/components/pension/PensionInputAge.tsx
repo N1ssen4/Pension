@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
-import { birthYear } from "../../utils/birthyear";
 import { pensionAge } from "../../utils/calculatePensionAge";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 import { ErrorField } from "../home/ErrorField";
@@ -22,15 +21,17 @@ const PensionInputAge = () => {
 
   //Funtion for calculation the public pension year.
   const publicPensionYear = () => {
-    if (isNaN(birthYear(user.age) + pensionAge(user.age))) return "YYYY";
-    return birthYear(user.age) + pensionAge(user.age);
+    if (user.birthYear !== null) {
+      if (isNaN(user.birthYear)) return "YYYY";
+      else return user.birthYear + pensionAge();
+    } else return "YYYY";
   };
   //Funtion for calculation the wanted pension year.
   const wantedPensionYear = () => {
-    if (user?.wantedPensionAge != null)
-      if (isNaN(user?.wantedPensionAge)) return "YYYY";
-      else return birthYear(user.age) + Number(user?.wantedPensionAge);
-    else return "YYYY";
+    if (user?.wantedPensionAge != null && user.birthYear != null) {
+      if (isNaN(user.wantedPensionAge)) return "YYYY";
+      else return user.birthYear + Number(user?.wantedPensionAge);
+    } else return "YYYY";
   };
 
   //Updating the wanted pension age.
@@ -55,7 +56,7 @@ const PensionInputAge = () => {
             type="number"
             placeholder="Antal år"
             disabled={true}
-            defaultValue={pensionAge(user.age)}
+            defaultValue={pensionAge()}
           />
           <div
             data-test-id="publicPensionYear"
@@ -77,7 +78,7 @@ const PensionInputAge = () => {
             onBlur={updatePensionAgeAndErrorField}
             defaultValue={user?.wantedPensionAge || 0}
           />
-          {!PensionAgeCheck(user.age, user.wantedPensionAge) ? (
+          {!PensionAgeCheck(user.birthYear, user.wantedPensionAge) ? (
             validationErrors.find(
               (error) => error.key === "wantedPensionAge"
             ) ? (

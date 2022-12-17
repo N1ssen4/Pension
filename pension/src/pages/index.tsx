@@ -23,11 +23,11 @@ const Home: NextPage = () => {
         defaultValue: user?.name || "",
       },
       {
-        name: "age",
+        name: "birthYear",
         type: "number",
         placeholder: "1967",
-        labelname: "Alder",
-        defaultValue: user?.age || "",
+        labelname: "Fødselsår",
+        defaultValue: user?.birthYear || "",
       },
       {
         name: "salary",

@@ -48,7 +48,7 @@ const Input = ({
         >
           {labelname}
           <div className="my-auto">
-            {name !== "name" && name !== "age" ? (
+            {name !== "name" && name !== "birthYear" ? (
               <button onClick={toggleModal} key={name}>
                 <QuestionMarkCircleIcon
                   id="navn"

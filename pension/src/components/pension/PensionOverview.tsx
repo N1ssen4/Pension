@@ -8,7 +8,6 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
-import { birthYear } from "../../utils/birthyear";
 import { GetCalculations } from "../../utils/calculations/Calculations";
 import { CheckUserDataToKeylane } from "../../utils/calculations/CalculationTypes";
 import { PayloadSkeleton } from "../../utils/calculations/KeylanePayloadSkeleton";
@@ -66,7 +65,7 @@ const PensionOverview = () => {
   //Define the user skeleton with context information.
   const currentUser: PayloadSkeleton = {
     primary: {
-      birthYear: birthYear(user.age),
+      birthYear: user.birthYear,
       currentPensionSavings: user.pensionSaving,
       monthlyPensionPayment: user.pensionPayment,
       monthlySalary: user.salary,

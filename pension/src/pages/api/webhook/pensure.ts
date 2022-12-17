@@ -61,7 +61,7 @@ export default async function Handler(
       await getPensionInfo(apiToken);
       await markExported(apiToken);
 
-      res.status(200).json({getPensionInfo});
+      res.status(200).json({ message: "Where is this?"});
     } catch (err) {
       console.log(err);
 

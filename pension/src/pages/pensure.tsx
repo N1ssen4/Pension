@@ -1,7 +1,14 @@
 import { NextPage } from "next";
-import { PensureLinkButton } from "../components/pensure/pensure";
 
 export const Pensure: NextPage = () => {
+
+  async function getPensureData() {
+    const reposonse = await fetch("/api/webhook/pensure");
+    const data = await reposonse.json();
+
+    console.log(data)
+  }
+  getPensureData()
   return (
     <>
       <div>Pensure Page</div>

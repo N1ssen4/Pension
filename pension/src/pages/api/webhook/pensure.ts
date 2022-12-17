@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useContext } from "react";
-import { UserContext } from "../../../context";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
@@ -38,7 +36,6 @@ async function markExported(apiToken: string, failureMessage?: string) {
 }
 
 export async function getPensionInfo(apiToken: string) {
-  const {setField} = useContext(UserContext) 
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
@@ -46,8 +43,7 @@ export async function getPensionInfo(apiToken: string) {
   );
 
   const JSONpensureResponse = await pensureResponse.json();
-  setField("pensure", JSONpensureResponse)
-  console.log(JSONpensureResponse)
+  return JSONpensureResponse
 }
 
 export default async function Handler(
@@ -65,7 +61,7 @@ export default async function Handler(
       await getPensionInfo(apiToken);
       await markExported(apiToken);
 
-      res.status(200).end();
+      res.status(200).json({getPensionInfo});
     } catch (err) {
       console.log(err);
 

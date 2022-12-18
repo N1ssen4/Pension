@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createClient } from 'redis';
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
-export const client = createClient()
 
 const fetchPensureData = (
   url: string,
@@ -11,7 +11,6 @@ const fetchPensureData = (
   method: "GET" | "POST",
   body?: any
 ) => {
-  
   const params: RequestInit = {
     method: method,
     headers: {
@@ -37,14 +36,15 @@ async function markExported(apiToken: string, failureMessage?: string) {
   return response;
 }
 
-export async function getPensionInfo(apiToken: string) {
+async function getPensionInfo(apiToken: string) {
+  const {setField} = useContext(UserContext)
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-  client.set("pensureData", JSON.stringify(pensureInfoJSON));
+  setField("pensure", pensureInfoJSON)
 }
 
 export default async function Handler(
@@ -62,7 +62,7 @@ export default async function Handler(
       await getPensionInfo(apiToken);
       await markExported(apiToken);
 
-      res.status(200).end()
+      res.status(200).end();
     } catch (err) {
       console.log(err);
 
@@ -71,4 +71,3 @@ export default async function Handler(
   }
   res.status(405).end();
 }
-

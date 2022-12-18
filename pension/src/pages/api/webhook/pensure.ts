@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { createClient } from 'redis';
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
+export const client = createClient()
 
 const fetchPensureData = (
   url: string,
@@ -42,6 +44,7 @@ export async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
+  client.set("pensureData", JSON.stringify(pensureInfoJSON));
 }
 
 export default async function Handler(

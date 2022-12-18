@@ -1,14 +1,9 @@
 import { NextPage } from "next";
+import { client } from "./api/webhook/pensure";
 
 export const Pensure: NextPage = () => {
 
-  async function getPensureData() {
-    const reposonse = await fetch("/api/webhook/pensure");
-    const data = await reposonse.json();
-
-    console.log(data)
-  }
-  getPensureData()
+  console.log(client.get("pensureData"))
   return (
     <>
       <div>Pensure Page</div>

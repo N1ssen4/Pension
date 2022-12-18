@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useContext } from "react";
-import { UserContext } from "../../../context";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
@@ -37,14 +35,30 @@ async function markExported(apiToken: string, failureMessage?: string) {
 }
 
 async function getPensionInfo(apiToken: string) {
-  const {setField} = useContext(UserContext)
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-  setField("pensure", pensureInfoJSON)
+
+  function getPaymentFields(obj: any): any[] {
+    const payments: any[] = [];
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (key == "payment") {
+          payments.push(obj[key]);
+        } else if (typeof obj[key] == "object") {
+          payments.push(...getPaymentFields(obj[key]));
+        }
+      }
+    }
+    return payments;
+  }
+
+  const payments = getPaymentFields(pensureInfoJSON);
+  console.log(payments)
+
 }
 
 export default async function Handler(

@@ -41,7 +41,7 @@ async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-
+  console.log(pensureInfoJSON)
   function getPaymentFields(obj: any): any[] {
     const payments: any[] = [];
     for (const key in obj) {
@@ -55,7 +55,6 @@ async function getPensionInfo(apiToken: string) {
     }
     return payments;
   }
-
   const payments = getPaymentFields(pensureInfoJSON);
   console.log(payments)
 

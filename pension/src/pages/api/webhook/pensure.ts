@@ -46,7 +46,7 @@ async function getPensionInfo(apiToken: string) {
     const payments: any[] = [];
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        if (key == "payment") {
+        if (key == "Payment") {
           payments.push(obj[key]);
         } else if (typeof obj[key] == "object") {
           payments.push(...getPaymentFields(obj[key]));

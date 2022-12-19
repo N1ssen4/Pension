@@ -70,7 +70,8 @@ async function getPensionInfo(apiToken: string, uid: string) {
   }
 
   const payments = getIndividualPensionInfo(pensureInfoJSON);
-  createPensionInfo(uid, payments);
+  
+  await createPensionInfo(uid, payments);
 }
 
 export default async function Handler(

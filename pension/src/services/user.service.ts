@@ -7,8 +7,8 @@ const userCollectionRef = collection(db, "users");
 
 
 //Add a new user to the user collection
-export const createUser = async (newUser : User) => {
-    const firestoreUser = await addDoc(userCollectionRef, newUser)
+export const createUser = async (newUser : User, pensureID : string) => {
+    const firestoreUser = await addDoc(userCollectionRef, {...newUser, pensureID})
     localStorage.setItem("FirestoreID", firestoreUser.id)
 }
 //Update the user with the specified ID

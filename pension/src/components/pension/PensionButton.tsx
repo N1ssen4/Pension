@@ -7,25 +7,27 @@ import { validationSchemaPensionPage } from "../../utils/inputvalidation";
 import { createUser, updateUser } from "../../services/user.service";
 
 const PensionButton = () => {
-  //Initialize context 
+  //Initialize context
   const { user, dataIsValid } = useContext(UserContext);
 
-  //Check the userData and then adding it to Firebase if correct. 
+  //Check the userData and then adding it to Firebase if correct.
   const CheckUserDataAndAddToFirestore = () => {
     const userDataScheck = validationSchemaPensionPage.safeParse(user);
-    const firestoreID = localStorage.getItem("FirestoreID")
-    if (userDataScheck.success){
+    const firestoreID = localStorage.getItem("FirestoreID");
+    if (userDataScheck.success) {
       if (firestoreID) {
-        const LocalStorageid = localStorage.getItem("FirestoreID") ?? ""
-        updateUser(LocalStorageid,user)
-      } else
-      createUser(user)
+        const LocalStorageid = localStorage.getItem("FirestoreID") ?? "";
+        updateUser(LocalStorageid, user);
+      } else {
+        const pensureID = localStorage.getItem("pensureID");
+        if (pensureID) {
+          createUser(user, pensureID);
+        }
+      }
+    } else {
+      console.log("ERROR: Not following Dreamplans dataskeleton");
     }
-    else {
-      console.log("ERROR: Not following Dreamplans dataskeleton")
-    }
-  }
-
+  };
 
   return (
     <>

@@ -1,27 +1,28 @@
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getPensionInfo } from "../../services/pension.service";
 
-
 const PensureData = () => {
-    
-    useEffect(() => {
-      const pensureID = localStorage.getItem("pensureID");
-      if (pensureID) {
-        getPensionInfo(pensureID);
-      }
-    }, []);
+  const [pensionInfo, setPensionInfo] = useState<string | undefined>("");
 
+  useEffect(() => {
+    const ID = localStorage.getItem("pensureID");
+    if (ID) {
+      // Wait for the Promise to resolve before calling setPensionInfo
+      (async () => {
+        const data = await getPensionInfo(ID);
+        setPensionInfo(data);
+      })();
+    }
+  }, []);
 
   return (
     <>
       <div className="space-y-6">
         <div className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
           <div>Samlet pensionsindsamling:</div>
-          <div className="font-bold">[XXXX kr.]</div>
-          <div className="flex justify-start">
-            
-          </div>
+          <div className="font-bold">{pensionInfo}</div>
+          <div className="flex justify-start"></div>
         </div>
         <div className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
           Har vi fundet de rigtige oplysninger? Tjek de fundne oplysninger og

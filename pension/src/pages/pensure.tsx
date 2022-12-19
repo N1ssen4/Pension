@@ -1,19 +1,14 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
-import { getPensionInfo } from "../services/pension.service";
-
+import PensureData from "../components/pensure/pensureData";
 export const Pensure: NextPage = () => {
-  useEffect(() => {
-    const pensureID = localStorage.getItem("pensureID");
-    if (pensureID) {
-      getPensionInfo(pensureID);
-    }
-  },[]);
+
 
   return (
-    <>
-      <div>Pensure Page</div>
-    </>
+    <main className="grid place-content-center p-4">
+      <div className="min-h-[80vh] max-w-[375px] space-y-3 border p-5 shadow-xl">
+        <PensureData/>
+      </div>
+    </main>
   );
 };
 

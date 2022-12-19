@@ -1,10 +1,12 @@
 import { DocumentData } from "firebase/firestore";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context";
 import { getPensionInfo } from "../../services/pension.service";
 import { numberWithCommas } from "../../utils/numberformatter";
 
 const PensureData = () => {
+  const { setField } = useContext(UserContext);
   const [pensionInfo, setPensionInfo] = useState<DocumentData | undefined>();
 
   useEffect(() => {
@@ -17,6 +19,14 @@ const PensureData = () => {
       })();
     }
   }, []);
+
+  const setPensionInfoContext = () => {
+    const pensionPayments = pensionInfo ? Object.values(pensionInfo).reduce((total, data) => total + data.Payment, 0) : 0;
+    const pensionSavings = pensionInfo ? Object.values(pensionInfo).reduce((total, data) => total + data.SavedValue, 0) : 0;
+
+    setField("pensionPayment", pensionPayments)
+    setField("pensionSaving", pensionSavings);
+    }
 
   return (
     <>
@@ -60,7 +70,10 @@ const PensureData = () => {
         </div>
         <div className="flex justify-center">
           <Link href={"/"}>
-            <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
+            <button
+              onClick={setPensionInfoContext}
+              className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
+            >
               Gå tilbage
             </button>
           </Link>

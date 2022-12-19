@@ -23,7 +23,8 @@ const PensureData = () => {
   const setPensionInfoContext = () => {
     const pensionPayments = pensionInfo ? Object.values(pensionInfo).reduce((total, data) => total + data.Payment, 0) : 0;
     const pensionSavings = pensionInfo ? Object.values(pensionInfo).reduce((total, data) => total + data.SavedValue, 0) : 0;
-
+    console.log(pensionPayments);
+    console.log(pensionSavings);
     setField("pensionPayment", pensionPayments)
     setField("pensionSaving", pensionSavings);
     }
@@ -51,7 +52,7 @@ const PensureData = () => {
                 }, {})
               ).map(([key, data]: any) => (
                 <>
-                  <div className="font-bold">Pensionsforening: {key}</div>
+                  <div className="font-bold">{key}</div>
                   <div>Indbetaling: {numberWithCommas(data.Payment)} kr.</div>
                   <div>
                     Pensionsopsparing: {numberWithCommas(data.SavedValue)} kr.

@@ -25,7 +25,7 @@ const PensureData = () => {
           <div>Samlet pensionsindsamling:</div>
           <div className="font-bold">
             {pensionInfo ? (
-              pensionInfo.map((data: any) => (
+              Object.values(pensionInfo).map((data: any) => (
                 <>
                   <div>Indbetaling: {data.Payment}</div>
                   <div>Pensionsforening: {data.PensionProviderName}</div>

@@ -26,7 +26,7 @@ const PensureData = () => {
           <div className="space-y-3">
             {pensionInfo ? (
               // Use the reduce method to create an object with the PensionProviderName as the key and the Payment and SavedValue values as the value
-              Object.values(
+              Object.entries(
                 Object.values(pensionInfo).reduce((result, data) => {
                   if (!result[data.PensionProviderName]) {
                     result[data.PensionProviderName] = {

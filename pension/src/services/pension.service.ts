@@ -5,6 +5,6 @@ import { db } from "../utils/database/server";
 const pensionCollectionRef = collection(db, "pensionInfo");
 
 //Add new pensionInfo to the pensioninfo collection
-export const createPensionInfo = async (pensionInfo: any[]) => {
-  await addDoc(pensionCollectionRef, pensionInfo);
+export const createPensionInfo = async (id: string, pensionInfo: any[]) => {
+  await addDoc(pensionCollectionRef, {id, ...pensionInfo});
 };

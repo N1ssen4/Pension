@@ -25,13 +25,29 @@ const PensureData = () => {
           <div>Samlet pensionsindsamling:</div>
           <div className="space-y-3">
             {pensionInfo ? (
-              Object.values(pensionInfo).map((data: any) => (
-                <>
-                  <div className="font-bold">Pensionsforening: {data.PensionProviderName}</div>
-                  <div>Indbetaling: {data.Payment}</div>
-                  <div>Pensionsopsparing: {data.SavedValue}</div>
-                </>
-              ))
+              // Use the reduce method to create an object with the PensionProviderName as the key and the Payment and SavedValue values as the value
+              Object.values(pensionInfo)
+                .reduce((result, data) => {
+                  if (!result[data.PensionProviderName]) {
+                    result[data.PensionProviderName] = {
+                      Payment: 0,
+                      SavedValue: 0,
+                    };
+                  }
+                  result[data.PensionProviderName].Payment += data.Payment;
+                  result[data.PensionProviderName].SavedValue +=
+                    data.SavedValue;
+                  return result;
+                }, {})
+                .map((data: any) => (
+                  <>
+                    <div className="font-bold">
+                      Pensionsforening: {data.PensionProviderName}
+                    </div>
+                    <div>Indbetaling: {data.Payment}</div>
+                    <div>Pensionsopsparing: {data.SavedValue}</div>
+                  </>
+                ))
             ) : (
               <div>Loading...</div>
             )}

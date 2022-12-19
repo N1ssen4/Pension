@@ -41,21 +41,34 @@ async function getPensionInfo(apiToken: string) {
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-  console.log(apiToken)
-  function getPaymentFields(obj: any): any[] {
+  
+  
+  function getProviderPayments(obj: any): any[] {
     const payments: any[] = [];
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        if (key == "Payment") {
-          payments.push(obj[key]);
-        } else if (typeof obj[key] == "object") {
-          payments.push(...getPaymentFields(obj[key]));
+        if (key === "PensionProviders") {
+          // Iterate over the pension providers
+          for (const provider of obj[key]) {
+            // Get the provider name, payment, and saved value for each scheme
+            const providerPayments = provider.Schemes.map((scheme: any) => ({
+              PensionProviderName: provider.PensionProviderName,
+              Payment: scheme.Payment,
+              SavedValue: scheme.SavedValue,
+            }));
+            // Add the provider payments to the payments array
+            payments.push(...providerPayments);
+          }
+        } else if (typeof obj[key] === "object") {
+          // If the value is an object, call the function recursively on it
+          payments.push(...getProviderPayments(obj[key]));
         }
       }
     }
     return payments;
   }
-  const payments = getPaymentFields(pensureInfoJSON);
+
+  const payments = getProviderPayments(pensureInfoJSON);
   console.log(payments)
 
 }

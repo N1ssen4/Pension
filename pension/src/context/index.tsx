@@ -54,7 +54,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   //Setting a Uuid for the user for pensure
   const setUuid = () => {
     if (!localStorage.getItem("pensureID")) {
-      localStorage.setItem("pensureID", JSON.stringify(uuidv4()));
+      localStorage.setItem("pensureID", uuidv4());
     }
   };
   //Funtion for setting the userfields when typing into fields.

@@ -69,7 +69,7 @@ async function getPensionInfo(apiToken: string, uid: string) {
   }
 
   const payments = getIndividualPensionInfo(pensureInfoJSON);
-  createPensionInfo(payments);
+  createPensionInfo({...payments});
 }
 
 export default async function Handler(

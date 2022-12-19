@@ -25,13 +25,13 @@ const PensureData = () => {
           <div>Samlet pensionsindsamling:</div>
           <div className="font-bold">
             {pensionInfo ? (
-              <>
-                <div>Indbetaling: {pensionInfo.Payment}</div>
-                <div>
-                  Pensionsforening: {pensionInfo.PensionProviderName}
-                </div>
-                <div>Pensionsopsparing: {pensionInfo.SavedValue}</div>
-              </>
+              pensionInfo.map((data: any) => (
+                <>
+                  <div>Indbetaling: {data.Payment}</div>
+                  <div>Pensionsforening: {data.PensionProviderName}</div>
+                  <div>Pensionsopsparing: {data.SavedValue}</div>
+                </>
+              ))
             ) : (
               <div>Loading...</div>
             )}

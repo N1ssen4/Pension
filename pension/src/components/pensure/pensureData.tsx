@@ -2,6 +2,7 @@ import { DocumentData } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getPensionInfo } from "../../services/pension.service";
+import { numberWithCommas } from "../../utils/numberformatter";
 
 const PensureData = () => {
   const [pensionInfo, setPensionInfo] = useState<DocumentData | undefined>();
@@ -38,13 +39,13 @@ const PensureData = () => {
                     data.SavedValue;
                   return result;
                 }, {})
-              ).map((data: any) => (
+              ).map(([key, data]: any) => (
                 <>
-                  <div className="font-bold">
-                    Pensionsforening: {data.PensionProviderName}
+                  <div className="font-bold">Pensionsforening: {key}</div>
+                  <div>Indbetaling: {numberWithCommas(data.Payment)} kr.</div>
+                  <div>
+                    Pensionsopsparing: {numberWithCommas(data.SavedValue)} kr.
                   </div>
-                  <div>Indbetaling: {data.Payment}</div>
-                  <div>Pensionsopsparing: {data.SavedValue}</div>
                 </>
               ))
             ) : (

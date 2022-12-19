@@ -4,12 +4,10 @@ import { getPensionInfo } from "../services/pension.service";
 
 export const Pensure: NextPage = () => {
 
-  useEffect(() => {
-    const pensureID = localStorage.getItem("pensureID")
-    if (pensureID) {
-      getPensionInfo(pensureID);
-    }
-  },[])
+const pensureID = localStorage.getItem("pensureID");
+if (pensureID) {
+  getPensionInfo(pensureID);
+}
   return (
     <>
       <div>Pensure Page</div>

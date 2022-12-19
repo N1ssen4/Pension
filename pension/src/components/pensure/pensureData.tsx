@@ -1,4 +1,3 @@
-import { divide } from "cypress/types/lodash";
 import { DocumentData } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -26,8 +25,8 @@ const PensureData = () => {
           <div className="space-y-3">
             {pensionInfo ? (
               // Use the reduce method to create an object with the PensionProviderName as the key and the Payment and SavedValue values as the value
-              Object.values(pensionInfo)
-                .reduce((result, data) => {
+              Object.values(
+                Object.values(pensionInfo).reduce((result, data) => {
                   if (!result[data.PensionProviderName]) {
                     result[data.PensionProviderName] = {
                       Payment: 0,
@@ -39,16 +38,15 @@ const PensureData = () => {
                     data.SavedValue;
                   return result;
                 }, {})
-                .Object.entries()
-                .map((data: any) => (
-                  <>
-                    <div className="font-bold">
-                      Pensionsforening: {data.PensionProviderName}
-                    </div>
-                    <div>Indbetaling: {data.Payment}</div>
-                    <div>Pensionsopsparing: {data.SavedValue}</div>
-                  </>
-                ))
+              ).map((data: any) => (
+                <>
+                  <div className="font-bold">
+                    Pensionsforening: {data.PensionProviderName}
+                  </div>
+                  <div>Indbetaling: {data.Payment}</div>
+                  <div>Pensionsopsparing: {data.SavedValue}</div>
+                </>
+              ))
             ) : (
               <div>Loading...</div>
             )}

@@ -39,6 +39,7 @@ const PensureData = () => {
                     data.SavedValue;
                   return result;
                 }, {})
+                .Object.entries()
                 .map((data: any) => (
                   <>
                     <div className="font-bold">

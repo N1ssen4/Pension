@@ -1,3 +1,4 @@
+import { identity } from "cypress/types/lodash";
 import { NextApiRequest, NextApiResponse } from "next";
 import { createPensionInfo } from "../../../services/pension.service";
 
@@ -69,7 +70,7 @@ async function getPensionInfo(apiToken: string, uid: string) {
   }
 
   const payments = getIndividualPensionInfo(pensureInfoJSON);
-  createPensionInfo({...payments});
+  createPensionInfo(identity,{...payments});
 }
 
 export default async function Handler(

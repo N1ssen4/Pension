@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { createPensionInfo } from "../../../services/pension.service";
 
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
@@ -34,17 +35,16 @@ async function markExported(apiToken: string, failureMessage?: string) {
   return response;
 }
 
-async function getPensionInfo(apiToken: string) {
+async function getPensionInfo(apiToken: string, uid: string) {
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
     apiToken,
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-  
-  
-  function getProviderPayments(obj: any): any[] {
-    const payments: any[] = [];
+
+  function getIndividualPensionInfo(obj: any): any[] {
+    const pensionInfo: any[] = [];
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         if (key === "PensionProviders") {
@@ -57,20 +57,19 @@ async function getPensionInfo(apiToken: string) {
               SavedValue: scheme.SavedValue,
             }));
             // Add the provider payments to the payments array
-            payments.push(...providerPayments);
+            pensionInfo.push(...providerPayments);
           }
         } else if (typeof obj[key] === "object") {
           // If the value is an object, call the function recursively on it
-          payments.push(...getProviderPayments(obj[key]));
+          pensionInfo.push(...getIndividualPensionInfo(obj[key]));
         }
       }
     }
-    return payments;
+    return pensionInfo;
   }
 
-  const payments = getProviderPayments(pensureInfoJSON);
-  console.log(payments)
-
+  const payments = getIndividualPensionInfo(pensureInfoJSON);
+  createPensionInfo(payments);
 }
 
 export default async function Handler(
@@ -85,7 +84,7 @@ export default async function Handler(
       return;
     }
     try {
-      await getPensionInfo(apiToken);
+      await getPensionInfo(apiToken, identity);
       await markExported(apiToken);
 
       res.status(200).end();

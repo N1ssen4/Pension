@@ -11,7 +11,7 @@ export const getPensionInfo = async (id: string) => {
   const docRef = doc(db, "pension", id);
   const info = await getDoc(docRef);
   if (info.exists()) {
-    return JSON.stringify(info.data())
+    return info.data()
   } else {
     console.log("No pension data found");
   }

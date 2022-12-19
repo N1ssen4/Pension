@@ -1,17 +1,23 @@
+import { DocumentData } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getPensionInfo } from "../../services/pension.service";
 
 const PensureData = () => {
-  const [pensionInfo, setPensionInfo] = useState<string | undefined>("");
+  const [pensionInfo, setPensionInfo] = useState();
 
   useEffect(() => {
     const ID = localStorage.getItem("pensureID");
     if (ID) {
       // Wait for the Promise to resolve before calling setPensionInfo
       (async () => {
-        const data = await getPensionInfo(ID);
-        setPensionInfo(data);
+        const info = await getPensionInfo(ID);
+        // Add a check to see if the value returned by the getPensionInfo function is undefined
+        if (info) {
+          // Use the toObject method to convert the DocumentData type to a normal JavaScript object
+          const data = info.toObject();
+          setPensionInfo(data);
+        }
       })();
     }
   }, []);

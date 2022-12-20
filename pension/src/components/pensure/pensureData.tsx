@@ -6,7 +6,7 @@ import { getPensionInfo } from "../../services/pension.service";
 import { numberWithCommas } from "../../utils/numberformatter";
 
 const PensureData = () => {
-  const { setField } = useContext(UserContext);
+  const { user, setField } = useContext(UserContext);
   const [pensionInfo, setPensionInfo] = useState<DocumentData | undefined>();
 
   useEffect(() => {
@@ -33,10 +33,12 @@ const PensureData = () => {
           0
         )
       : 0;
+    console.log(user);
     setField("pensionPayment", pensionPayments);
+    console.log(user);
     setField("pensionSaving", pensionSavings);
+    console.log(user);
   };
-  
 
   return (
     <>

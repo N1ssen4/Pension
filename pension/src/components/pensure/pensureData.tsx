@@ -27,6 +27,7 @@ const PensureData = () => {
           0
         )
       : 0;
+      console.log(pensionPayments)
     setField("pensionPayment", pensionPayments);
   };
   const setPensionSavingContext = () => {
@@ -36,6 +37,7 @@ const PensureData = () => {
           0
         )
       : 0;
+      console.log(pensionSavings)
     setField("pensionSaving", pensionSavings);
   };
 

@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
-export const PensureLinkButton = ({forwardurl} : {forwardurl: string}) => {
-  const router = useRouter()  
+export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
+  const router = useRouter();
   const pensureRedirectUrl = useMemo(() => {
-    if (typeof window !== "undefined")
-    {
+    if (typeof window !== "undefined") {
       let webhookUrl = "/api/webhook/pensure";
       if (webhookUrl?.slice(0, 4) !== "http") {
         webhookUrl = `${window.location.origin}/${webhookUrl}`;
@@ -24,25 +23,25 @@ export const PensureLinkButton = ({forwardurl} : {forwardurl: string}) => {
         return url.toString();
       }
     }
-    return ''
-  }, [forwardurl])
+    return "";
+  }, [forwardurl]);
 
   const onClick = () => {
     router.push(pensureRedirectUrl);
-  }
-  
+  };
+
   return (
     <>
-      <div className="text-center">
-        Hent automatisk din pensionsdata ved at benytte vores samarbejdspartner Pensure: 
-      </div>
-      <div className="flex justify-center">
-        <button
-          className="h-[30px] w-[100px] rounded-[25px] border bg-[#0700F7] text-white"
-          onClick={onClick}
-        >
-          Pensure
-        </button>
+      <div className="text-center ">
+        Hent automatisk din pensionsdata ved at benytte vores samarbejdspartner
+        <div>
+          <a
+            className="cursor-pointer bg-gradient-to-r from-[#FEB791] to-[#F57A83] bg-clip-text text-transparent"
+            onClick={onClick}
+          >
+            Pensure
+          </a>
+        </div>
       </div>
     </>
   );

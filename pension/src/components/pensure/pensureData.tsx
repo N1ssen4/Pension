@@ -20,22 +20,29 @@ const PensureData = () => {
     }
   }, []);
 
-  const setPensionInfoContext = () => {
+  const setPensionPaymentContext = () => {
     const pensionPayments = pensionInfo
       ? Object.values(pensionInfo).reduce(
           (total, data) => total + data.Payment,
           0
         )
       : 0;
+    setField("pensionPayment", pensionPayments);
+  };
+  const setPensionSavingContext = () => {
     const pensionSavings = pensionInfo
       ? Object.values(pensionInfo).reduce(
           (total, data) => total + data.SavedValue,
           0
         )
       : 0;
-    setField("pensionPayment", pensionPayments);
     setField("pensionSaving", pensionSavings);
   };
+
+  const setContext = () => {
+    setPensionPaymentContext()
+    setPensionSavingContext()
+  }
 
   return (
     <>
@@ -80,7 +87,7 @@ const PensureData = () => {
         <div className="flex justify-center">
           <Link href={"/"}>
             <button
-              onClick={setPensionInfoContext}
+              onClick={setContext}
               className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
             >
               Gå tilbage

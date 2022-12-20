@@ -59,6 +59,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   //Funtion for setting the userfields when typing into fields.
   const setField = (name: string, value: any) => {
+    console.log(name)
     if (name !== "name") {
       setUser({ ...user, [name]: Number.parseFloat(value) });
     } else setUser({ ...user, [name]: value });

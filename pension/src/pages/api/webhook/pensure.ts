@@ -92,10 +92,7 @@ export default async function Handler(
       res.status(200).end();
     } catch (err) {
       console.log(err);
-      const exportedCallResponse = await markExported(
-        apiToken,
-        (err as any)?.message
-      );
+      
       res.status(500).json({ errormessage: (err as any)?.message });
     }
   }

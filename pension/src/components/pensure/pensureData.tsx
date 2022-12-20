@@ -44,6 +44,7 @@ const PensureData = () => {
 
   const setContext = () => {
     setPensionPaymentContext();
+    setPensionSavingContext();
   };
 
   return (

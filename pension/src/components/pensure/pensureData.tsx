@@ -30,7 +30,7 @@ const PensureData = () => {
     console.log(pensionPayments);
     setField("pensionPayment", pensionPayments);
   };
-  
+
   const setPensionSavingContext = () => {
     const pensionSavings = pensionInfo
       ? Object.values(pensionInfo).reduce(
@@ -44,7 +44,6 @@ const PensureData = () => {
 
   const setContext = () => {
     setPensionPaymentContext();
-    setPensionSavingContext();
   };
 
   return (

@@ -1,6 +1,4 @@
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import { InfoModal } from "../home/InfoModal";
 
 const PensionIntroduction = () => {
   return (
@@ -14,7 +12,7 @@ const PensionIntroduction = () => {
         </div>
 
         <div data-test-id="pensionPageText" className="text-center">
-          Her kan du se konsekvenserne af at ændre din pensionsalder:
+          Her kan du se konsekvenserne af at ændre din pensionsalder
         </div>
       </div>
     </>

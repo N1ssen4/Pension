@@ -61,11 +61,9 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const setField = (name: string, value: any) => {
     let updatedUser;
     if (name !== "name") {
-      updatedUser = Object.assign({}, user, {
-        [name]: Number.parseFloat(value),
-      });
+      updatedUser = { ...user, [name]: Number.parseFloat(value) };
     } else {
-      updatedUser = Object.assign({}, user, { [name]: value });
+      updatedUser = { ...user, [name]: value };
     }
     setUser(updatedUser);
   };

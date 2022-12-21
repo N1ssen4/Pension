@@ -22,26 +22,19 @@ const PensureData = () => {
   }, []);
 
   //Setting the pensionPayment & -Saving on the userContext.
-  const setPensionContext = (type: string) => {
-    let total = 0;
+  useEffect(() => {
     if (pensionInfo) {
+      let pensionPayment = 0;
+      let pensionSaving = 0;
+
       Object.values(pensionInfo).forEach((data) => {
-        if (type === "pensionPayment") {
-          total += data.Payment;
-        } else if (type === "pensionSaving") {
-          total += data.SavedValue;
-        }
+        pensionPayment += data.Payment;
+        pensionSaving += data.SavedValue;
       });
+
+      setField("pensionPayment", pensionPayment);
+      setField("pensionSaving", pensionSaving);
     }
-    setField(type, total);
-  };
-  
-  useEffect(() => {
-    setPensionContext("pensionPayment");
-  }, [pensionInfo]);
-  
-  useEffect(() => {
-    setPensionContext("pensionSaving");
   }, [pensionInfo]);
 
   return (

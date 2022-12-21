@@ -44,7 +44,8 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     return user ? JSON.parse(user) : {};
   };
   //State for handling the user
-  const [user, setUser] = useState<User>({} as User);
+  const initialUser = getInitialUser()
+  const [user, setUser] = useState<User>(initialUser);
 
   //Calling the getInitialUser funtion on pageload and reloads.
   useEffect(() => {
@@ -61,9 +62,11 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const setField = (name: string, value: any) => {
     let updatedUser;
     if (name !== "name") {
-      updatedUser = { ...user, [name]: Number.parseFloat(value) };
+      updatedUser = Object.assign({}, user, {
+        [name]: Number.parseFloat(value),
+      });
     } else {
-      updatedUser = { ...user, [name]: value };
+      updatedUser = Object.assign({}, user, { [name]: value });
     }
     setUser(updatedUser);
   };

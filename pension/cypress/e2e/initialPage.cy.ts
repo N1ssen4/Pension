@@ -11,28 +11,34 @@ describe("Initial loading of webpage", () => {
   it("should have the correct title", () => {
     cy.get('[data-test-id="pensionTitle"]').should(
       "have.text",
-      "Hvornår kan du gå på pension?"
+      "Hvornår vil du gå på pension?"
+    );
+  });
+  it("should have the correct subtext", () => {
+    cy.get('[data-test-id="pensionTitle2"]').should(
+      "have.text",
+      "Se hvad du skal spare op i dag for at kunne gå på pension det år du drømmer om."
     );
   });
   it("should have the correct input labels", () => {
     cy.get('[data-test-id="name"]').should("have.text", "Navn");
-    cy.get('[data-test-id="age"]').should("have.text", "Alder");
+    cy.get('[data-test-id="birthYear"]').should("have.text", "Fødselsår");
     cy.get('[data-test-id="salary"]').should(
       "have.text",
-      "Løn før skat pr. måned"
+      "Månedsløn før skat"
     );
     cy.get('[data-test-id="pensionSaving"]').should(
       "have.text",
-      "Samlet pensionsopsparing"
+      "Samlet pensionsopsparing i dag"
     );
     cy.get('[data-test-id="pensionPayment"]').should(
       "have.text",
-      "Pensionsindbetaling pr. måned"
+      "Månedlig pensionsindbetaling"
     );
   });
   it("should load the input fields", () => {
     cy.get('[data-test-id-input="name"]').should("be.visible");
-    cy.get('[data-test-id-input="age"]').should("be.visible");
+    cy.get('[data-test-id-input="birthYear"]').should("be.visible");
     cy.get('[data-test-id-input="salary"]').should("be.visible");
     cy.get('[data-test-id-input="pensionSaving"]').should("be.visible");
     cy.get('[data-test-id-input="pensionPayment"]').should("be.visible");
@@ -52,7 +58,7 @@ describe("Simulating user typing valid inputs and clicking button", () => {
     cy.get('[data-test-id-input="name"]')
       .type("TestUser")
       .should("have.value", "TestUser");
-    cy.get('[data-test-id-input="age"]').type("35").should("have.value", "35");
+    cy.get('[data-test-id-input="birthYear"]').type("1980").should("have.value", "1980");
     cy.get('[data-test-id-input="salary"]')
       .type("35000")
       .should("have.value", "35.000");
@@ -82,10 +88,10 @@ describe("Simulating the user typing invalid inputs", () => {
       .blur()
       .get('[data-test-id-error="name"]')
       .should("have.text", " Maximalt 100 karakterer ");
-    cy.get('[data-test-id-input="age"]')
-      .type("101")
+    cy.get('[data-test-id-input="birthYear"]')
+      .type("1920")
       .blur()
-      .get('[data-test-id-error="age"]')
+      .get('[data-test-id-error="birthYear"]')
       .should("have.text", " Værdi skal være mellem 18 og 100 år ");
     cy.get('[data-test-id-input="salary"]')
       .type("10000001")
@@ -118,10 +124,10 @@ describe("Simulating the user not typing inputs", () => {
       .blur()
       .get('[data-test-id-error="name"]')
       .should("have.text", " Påkrævet felt ");
-    cy.get('[data-test-id-input="age"]')
+    cy.get('[data-test-id-input="birthYear"]')
       .click()
       .blur()
-      .get('[data-test-id-error="age"]')
+      .get('[data-test-id-error="birthYear"]')
       .should("have.text", " Påkrævet felt ");
     cy.get('[data-test-id-input="salary"]')
       .click()
@@ -148,7 +154,7 @@ describe("Simulating the user not typing inputs", () => {
       cy.get('[data-test-id-input="pensionPayment"]').type("18000");
       cy.get('[data-test-id="calculateButtonErrorMessage"]').should(
         "have.text",
-        "Det er ikke muligt at indbetale mere end 80% af sin løn til pension. Check venligst dine oplysningerne igen. "
+        "Det er ikke muligt at indbetale mere end 80% af sin løn til pension. Check venligst dine oplysningerne igen."
       );
     });
   });

@@ -10,7 +10,7 @@ describe("Simulating user typing valid inputs and clicking button", () => {
     cy.get('[data-test-id-input="name"]')
       .type("TestUser")
       .should("have.value", "TestUser");
-    cy.get('[data-test-id-input="age"]').type("35").should("have.value", "35");
+    cy.get('[data-test-id-input="birthYear"]').type("1980").should("have.value", "1980");
     cy.get('[data-test-id-input="salary"]')
       .type("35000")
       .should("have.value", "35.000");
@@ -116,7 +116,7 @@ describe("Simulating the user making inputs that are invalid", () => {
     cy.get('[data-test-id-input="name"]')
       .type("TestUser")
       .should("have.value", "TestUser");
-    cy.get('[data-test-id-input="age"]').type("35").should("have.value", "35");
+    cy.get('[data-test-id-input="birthYear"]').type("1980").should("have.value", "1980");
     cy.get('[data-test-id-input="salary"]')
       .type("35000")
       .should("have.value", "35.000");

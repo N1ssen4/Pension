@@ -10,7 +10,8 @@ const Introduction = () => {
       >
         Hvornår vil du gå på pension?
       </div>
-      <div className='text-center text-[14px] font-thin'>
+      <div
+      data-test-id="pensionTitle2" className='text-center text-[14px] font-thin'>
         Se hvad du skal spare op i dag for at kunne gå på pension det år du
         drømmer om.
       </div>

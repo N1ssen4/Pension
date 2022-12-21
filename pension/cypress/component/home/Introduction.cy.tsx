@@ -6,7 +6,7 @@ describe("Introduction.cy.tsx", () => {
     cy.mount(<Introduction />);
     cy.get('[data-test-id="pensionTitle"]').should(
       "have.text",
-      "Hvornår kan du gå på pension?"
+      "Hvornår vil du gå på pension?"
     );
   });
 });

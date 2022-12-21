@@ -16,6 +16,7 @@ type TUserContext = {
   setUuid: (value: string) => void;
   setUser: (user: User) => void;
   setField: (name: string, value: any) => void;
+  setFields: (names: string[], values: any[]) => void;
   checkValidation: (key: string, value: any) => void;
   dataIsValid: (schema: any, user: User) => boolean | undefined;
   errors?: Record<string, string>;
@@ -25,6 +26,7 @@ type TUserContext = {
 //Creating the context from the User type.
 const UserContext = createContext<TUserContext>({
   setField: () => {},
+  setFields: () => {},
   setUser: () => {},
   user: {} as User,
   checkValidation: () => {},
@@ -69,8 +71,18 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       updatedUser = Object.assign({}, user, { [name]: value });
     }
     setUser(updatedUser);
-    console.log(user)
   };
+
+  const setFields = (names: string[], values: any[]) => {
+    const updatedUser = names.reduce((acc, name, index) => {
+      return {
+        ...acc,
+        [name]: values[index],
+      };
+    }, { ...user });
+    setUser(updatedUser);
+  };
+  
 
   //checking if the data on the individual inputs are valid and if not throwing an error.
   const checkValidation = (key: string, value: any) => {
@@ -108,7 +120,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, setField, checkValidation, dataIsValid, setUuid }}
+      value={{ user, setUser, setField, setFields, checkValidation, dataIsValid, setUuid }}
     >
       {children}
     </UserContext.Provider>

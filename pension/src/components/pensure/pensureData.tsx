@@ -36,12 +36,13 @@ const PensureData = () => {
       callback();
     }
   };
-
-  setPensionContext("pensionPayment", () => {
-    setTimeout(() => {
-      setPensionContext("pensionSaving");
-    }, 1);
-  });
+  useEffect(() => {
+    setPensionContext("pensionPayment", () => {
+      setTimeout(() => {
+        setPensionContext("pensionSaving");
+      }, 1);
+    });
+  }, []);
 
   return (
     <>

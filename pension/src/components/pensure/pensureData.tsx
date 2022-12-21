@@ -20,23 +20,25 @@ const PensureData = () => {
     }
   }, []);
 
-  const setPensionContext = (fieldname: string) => {
+  const setPensionContext = (type: string, callback? : () => void) => {
     let total = 0;
     if (pensionInfo) {
       Object.values(pensionInfo).forEach((data) => {
-        if (fieldname === "pensionPayment") {
+        if (type === 'payment') {
           total += data.Payment;
-        } else if (fieldname === "pensionSaving") {
+        } else if (type === 'saving') {
           total += data.SavedValue;
         }
       });
     }
-    setField(fieldname, total);
-  };
-  setPensionContext("pensionSaving");
-  setTimeout(() => {
-    setPensionContext("pensionPayment");
-  }, 1000);
+    setField(type, total);
+    if (callback) {
+      callback();
+    }
+  }
+  setPensionContext('pensionSaving', () => {
+    setPensionContext('pensionPayment');
+  });
 
   return (
     <>

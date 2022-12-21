@@ -38,7 +38,7 @@ const PensureData = () => {
   };
 
   useEffect(() => {
-    setPensionPaymentContext()
+    setPensionPaymentContext
   }, [])
 
   return (

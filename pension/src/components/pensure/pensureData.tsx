@@ -20,22 +20,23 @@ const PensureData = () => {
     }
   }, []);
 
-  const setPensionContext = (fieldname : string) => {
+  const setPensionContext = (fieldname: string) => {
     let total = 0;
     if (pensionInfo) {
       Object.values(pensionInfo).forEach((data) => {
-        if (fieldname === 'pensionPayment') {
+        if (fieldname === "pensionPayment") {
           total += data.Payment;
-        } else if (fieldname === 'pensionSaving') {
+        } else if (fieldname === "pensionSaving") {
           total += data.SavedValue;
         }
       });
     }
     setField(fieldname, total);
-  }
-
-  setPensionContext('pensionPayment')
-  setPensionContext('pensionSaving')
+  };
+  setPensionContext("pensionSaving");
+  setTimeout(() => {
+    setPensionContext("pensionPayment");
+  }, 1000);
 
   return (
     <>
@@ -79,9 +80,7 @@ const PensureData = () => {
         </div>
         <div className="flex justify-center">
           <Link href={"/"}>
-            <button
-              className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
-            >
+            <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
               Gå tilbage
             </button>
           </Link>

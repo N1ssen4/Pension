@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { errorHandler } from "../utils/errorHandler";
 
-
-//hook for the error handler when setting errors. 
+//hook that handles errors and setting new errors. Updating the 'errors' state triggers a re-render of the errors when displaying them to the user.
 export const getSetError = (
   errors?: Record<string, string>,
   setErrors?: Dispatch<SetStateAction<Record<string, string>>>

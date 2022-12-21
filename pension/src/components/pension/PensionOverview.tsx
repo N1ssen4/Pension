@@ -49,7 +49,7 @@ const PensionOverview = () => {
   if (fieldWasUpdated) {
     localStorage.setItem("User", JSON.stringify(user));
   }
-  //Checking the pensionpayment object and making sure it's not null or NaN value.
+  //Checking the pensionpayment and making sure it's not null or NaN value.
   const pensionPayment = () => {
     if (user?.pensionPayment != null) {
       if (isNaN(user.pensionPayment)) return "";
@@ -103,7 +103,7 @@ const PensionOverview = () => {
       
     }
   };
-  //Caling the calculationg everytime the user changes their pension age or payment. 
+  //Calling the calculation everytime the user changes their wantedPensionAge or pensionPayment. 
   useEffect(() => {
     KeylaneResult();
   }, [user.pensionPayment, user.wantedPensionAge]);

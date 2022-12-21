@@ -6,13 +6,14 @@ import { getPensionInfo } from "../../services/pension.service";
 import { numberWithCommas } from "../../utils/numberformatter";
 
 const PensureData = () => {
-  const { user, setField } = useContext(UserContext);
+  const { setField } = useContext(UserContext);
   const [pensionInfo, setPensionInfo] = useState<DocumentData | undefined>();
 
+  //Fetching the pensiondata from Pensure.
   useEffect(() => {
     const ID = localStorage.getItem("pensureID");
     if (ID) {
-      // Wait for the Promise to resolve before calling setPensionInfo
+      // Waiting for the Promise to resolve before calling setPensionInfo.
       (async () => {
         const data = await getPensionInfo(ID);
         setPensionInfo(data);
@@ -20,6 +21,7 @@ const PensureData = () => {
     }
   }, []);
 
+  //Setting the pensionPayment & -Saving on the userContext.
   const setPensionContext = (type: string, callback?: () => void) => {
     let total = 0;
     if (pensionInfo) {
@@ -36,6 +38,12 @@ const PensureData = () => {
       callback();
     }
   };
+  setPensionContext("pensionPayment", () => {
+    setTimeout(() => {
+      setPensionContext("pensionSaving");
+    }, 1);
+  });
+
   return (
     <>
       <div className="space-y-6">
@@ -43,8 +51,10 @@ const PensureData = () => {
           <div>Samlet pensionsindsamling:</div>
           <div className="space-y-3">
             {pensionInfo ? (
-              // Use the reduce method to create an object with the PensionProviderName as the key and the Payment and SavedValue values as the value
               Object.entries(
+                //Getting the pensionProviderName as a key and Payment & SavedValue as values. Then adding all the payments and savedvalues and assigning them to the key.
+                //This is because some users have mutiple entires of the same PensionProviderName with different payments and savings which could be confusing to some users.
+                //So here we have grouped those into single PensionProviderName "keys" with the corresponding "values": Payment & SavedValue.
                 Object.values(pensionInfo).reduce((result, data) => {
                   if (!result[data.PensionProviderName]) {
                     result[data.PensionProviderName] = {
@@ -73,21 +83,12 @@ const PensureData = () => {
           <div className="flex justify-start"></div>
         </div>
         <div className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
-          Har vi fundet de rigtige oplysninger? Tjek de fundne oplysninger og
-          ret dem eventuelt til.
+          Har vi fundet de rigtige oplysninger? Du kan rette dine oplysninger på
+          næste side hvis der er eventuelle fejl.
         </div>
         <div className="flex justify-center">
           <Link href={"/"}>
-            <button
-              onClick={() => {
-                setPensionContext("pensionPayment", () => {
-                  setTimeout(() => {
-                    setPensionContext("pensionSaving");
-                  }, 1);
-                });
-              }}
-              className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
-            >
+            <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
               Gå tilbage
             </button>
           </Link>

@@ -99,6 +99,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("User", JSON.stringify(user));
   }, [user]);
 
+  //Generating a unique ID that is used for collecting pensiondata from Pensure.
   useEffect(() => {
     setUuid();
   }, []);

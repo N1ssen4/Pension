@@ -5,6 +5,7 @@ import { createPensionInfo } from "../../../services/pension.service";
 const PENSURE_API_KEY = process.env.PENSURE_API_KEY!;
 const PENSURE_API_URL = process.env.PENSURE_API_URL!;
 
+// function for fetching data from Pensure.
 const fetchPensureData = (
   url: string,
   apiToken: string,
@@ -25,6 +26,8 @@ const fetchPensureData = (
 
   return fetch(url, params);
 };
+
+// Setting a "mark" that the User has exported their pensionData.
 async function markExported(apiToken: string, failureMessage?: string) {
   let url = `${PENSURE_API_URL}/gateway/exported`;
 
@@ -36,6 +39,7 @@ async function markExported(apiToken: string, failureMessage?: string) {
   return response;
 }
 
+// Getting the specific pensionInfo with the unique id.
 async function getPensionInfo(apiToken: string, uid: string) {
   const pensureResponse = await fetchPensureData(
     `${PENSURE_API_URL}/providers/pensionsinfo/file/data`,
@@ -43,7 +47,7 @@ async function getPensionInfo(apiToken: string, uid: string) {
     "GET"
   );
   const pensureInfoJSON = await pensureResponse.json();
-
+  //Only "extracting" the info we need, which here is PensionProviderName, Payment & SavedValue for those PensionProviderName's.
   function getIndividualPensionInfo(obj: any): any[] {
     const pensionInfo: any[] = [];
     for (const key in obj) {
@@ -70,10 +74,11 @@ async function getPensionInfo(apiToken: string, uid: string) {
   }
 
   const payments = getIndividualPensionInfo(pensureInfoJSON);
-  
+
   await createPensionInfo(uid, payments);
 }
 
+//Setting ourNextJS Handler that handels our webhook and calls our functions if everything is right.
 export default async function Handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -92,7 +97,7 @@ export default async function Handler(
       res.status(200).end();
     } catch (err) {
       console.log(err);
-      
+
       res.status(500).json({ errormessage: (err as any)?.message });
     }
   }

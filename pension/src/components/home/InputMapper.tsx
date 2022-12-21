@@ -11,6 +11,7 @@ const InputMapper: React.FC<{
   const { setField } = useContext(UserContext);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
   //funtion to look through the errormap and displaying them to the user.
   const validationErrors = useMemo(() => {
     return Object.entries(errors || {}).map(([key, value]) => ({

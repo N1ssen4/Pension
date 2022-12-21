@@ -44,8 +44,8 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     return user ? JSON.parse(user) : {};
   };
   //State for handling the user
-  const initialUser = getInitialUser()
-  const [user, setUser] = useState<User>(initialUser);
+
+  const [user, setUser] = useState<User>({} as User);
 
   //Calling the getInitialUser funtion on pageload and reloads.
   useEffect(() => {
@@ -69,6 +69,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       updatedUser = Object.assign({}, user, { [name]: value });
     }
     setUser(updatedUser);
+    console.log(user)
   };
 
   //checking if the data on the individual inputs are valid and if not throwing an error.

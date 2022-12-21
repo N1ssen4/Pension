@@ -36,14 +36,6 @@ const PensureData = () => {
       callback();
     }
   };
-  useEffect(() => {
-    setPensionContext("pensionPayment", () => {
-      setTimeout(() => {
-        setPensionContext("pensionSaving");
-      }, 1);
-    });
-  }, []);
-
   return (
     <>
       <div className="space-y-6">
@@ -86,7 +78,16 @@ const PensureData = () => {
         </div>
         <div className="flex justify-center">
           <Link href={"/"}>
-            <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
+            <button
+              onClick={() => {
+                setPensionContext("pensionPayment", () => {
+                  setTimeout(() => {
+                    setPensionContext("pensionSaving");
+                  }, 1);
+                });
+              }}
+              className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
+            >
               Gå tilbage
             </button>
           </Link>

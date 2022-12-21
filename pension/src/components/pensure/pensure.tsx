@@ -17,7 +17,7 @@ export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
       //getting our uuid for Pensure.
       const userId = localStorage.getItem("pensureID");
       //Creating a URL object with our pensure link.
-      const url = new URL(`https://api.demo.pensure.dk/api/crm/v1`);
+      const url = new URL(`https://dreamplan.demo.pensure.dk/zeus1`);
 
       //If we have a userId then set these queryparams.
       if (userId) {
@@ -43,9 +43,14 @@ export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
       <div className="text-center ">
         Hent automatisk din pensionsdata ved at benytte vores samarbejdspartner
         <div>
-          <button onClick={onClick} className="font-semibold rounded-md text-white bg-gradient-to-r from-[#FEB791] to-[#F57A83] px-3 py-1">
-            Pensure
-          </button>
+          <a
+            className="cursor-pointer bg-gradient-to-r from-[#FEB791] to-[#F57A83] bg-clip-text text-transparent"
+            onClick={onClick}
+          >
+            <button className="rounded-md bg-gradient-to-r from-[#FEB791] to-[#F57A83] px-3 py-1 font-semibold text-white">
+              Pensure
+            </button>
+          </a>
         </div>
       </div>
     </>

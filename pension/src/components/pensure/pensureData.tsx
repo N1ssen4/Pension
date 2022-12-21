@@ -89,7 +89,7 @@ const PensureData = () => {
         <div className="flex justify-center">
           <Link href={"/"}>
             <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
-              Gå tilbage
+              Gå videre
             </button>
           </Link>
         </div>

@@ -17,7 +17,7 @@ export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
       //getting our uuid for Pensure.
       const userId = localStorage.getItem("pensureID");
       //Creating a URL object with our pensure link.
-      const url = new URL(`https://dreamplan.pensure.dk/zeus1`);
+      const url = new URL(`https://dreamplan.demo.pensure.dk/zeus1`);
 
       //If we have a userId then set these queryparams.
       if (userId) {

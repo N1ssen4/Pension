@@ -73,6 +73,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(updatedUser);
   };
 
+  //Function for setting mutiple fields at once. 
   const setFields = (names: string[], values: any[]) => {
     const updatedUser = names.reduce((acc, name, index) => {
       return {

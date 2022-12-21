@@ -20,24 +20,22 @@ const PensureData = () => {
     }
   }, []);
 
-  const setPensionPaymentContext = () => {
-    const pensionPayments = pensionInfo
-      ? Object.values(pensionInfo).reduce(
-          (total, data) => total + data.Payment,
-          0
-        )
-      : 0;
-    setField("pensionPayment", pensionPayments);
-  };
-  const setPensionSavingContext = () => {
-    const pensionSavings = pensionInfo
-      ? Object.values(pensionInfo).reduce(
-          (total, data) => total + data.SavedValue,
-          0
-        )
-      : 0;
-    setField("pensionSaving", pensionSavings);
-  };
+  const setPensionContext = (fieldname : string) => {
+    let total = 0;
+    if (pensionInfo) {
+      Object.values(pensionInfo).forEach((data) => {
+        if (fieldname === 'pensionPayment') {
+          total += data.Payment;
+        } else if (fieldname === 'pensionSaving') {
+          total += data.SavedValue;
+        }
+      });
+    }
+    setField(fieldname, total);
+  }
+
+  setPensionContext('pensionPayment')
+  setPensionContext('pensionSaving')
 
   return (
     <>
@@ -80,9 +78,8 @@ const PensureData = () => {
           ret dem eventuelt til.
         </div>
         <div className="flex justify-center">
-          <Link onClick={setPensionSavingContext} href={"/"}>
+          <Link href={"/"}>
             <button
-              onClick={setPensionPaymentContext}
               className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
             >
               Gå tilbage

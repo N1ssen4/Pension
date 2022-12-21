@@ -24,9 +24,9 @@ const PensureData = () => {
     let total = 0;
     if (pensionInfo) {
       Object.values(pensionInfo).forEach((data) => {
-        if (type === 'payment') {
+        if (type === 'pensionPayment') {
           total += data.Payment;
-        } else if (type === 'saving') {
+        } else if (type === 'pensionSaving') {
           total += data.SavedValue;
         }
       });
@@ -36,6 +36,7 @@ const PensureData = () => {
       callback();
     }
   }
+
   setPensionContext('pensionSaving', () => {
     setPensionContext('pensionPayment');
   });

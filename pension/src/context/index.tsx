@@ -97,7 +97,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   //Syncing/setting the user data with local storage every time the user data changes.
   useEffect(() => {
     localStorage.setItem("User", JSON.stringify(user));
-  }, [user.pensionPayment, user.pensionSaving]);
+  }, [user]);
 
   useEffect(() => {
     setUuid();

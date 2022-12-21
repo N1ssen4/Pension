@@ -33,12 +33,13 @@ const PensureData = () => {
           0
         )
       : 0;
-    console.log(user);
     setField("pensionPayment", pensionPayments);
-    console.log(user);
     setField("pensionSaving", pensionSavings);
-    console.log(user);
   };
+
+  useEffect(() => {
+    setPensionPaymentContext()
+  }, [])
 
   return (
     <>
@@ -83,7 +84,6 @@ const PensureData = () => {
         <div className="flex justify-center">
           <Link href={"/"}>
             <button
-              onClick={setPensionPaymentContext}
               className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white"
             >
               Gå tilbage

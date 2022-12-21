@@ -22,7 +22,7 @@ const PensureData = () => {
   }, []);
 
   //Setting the pensionPayment & -Saving on the userContext.
-  const setPensionContext = (type: string, callback?: () => void) => {
+  const setPensionContext = (type: string) => {
     let total = 0;
     if (pensionInfo) {
       Object.values(pensionInfo).forEach((data) => {
@@ -34,15 +34,15 @@ const PensureData = () => {
       });
     }
     setField(type, total);
-    if (callback) {
-      callback();
-    }
   };
-  setPensionContext("pensionPayment", () => {
-    setTimeout(() => {
-      setPensionContext("pensionSaving");
-    }, 1);
-  });
+  
+  useEffect(() => {
+    setPensionContext("pensionPayment");
+  }, [pensionInfo]);
+  
+  useEffect(() => {
+    setPensionContext("pensionSaving");
+  }, [pensionInfo]);
 
   return (
     <>

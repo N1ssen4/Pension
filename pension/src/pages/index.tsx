@@ -5,7 +5,8 @@ import CalculateButton from "../components/home/CalculateButton";
 import { InputProps } from "../components/home/Input";
 import InputMapper from "../components/home/InputMapper";
 import Introduction from "../components/home/Introduction";
-import { PensureLinkButton } from "../components/pensure/pensure";
+import PensureLinkButton from "../components/pensure/pensure";
+
 
 //HomePage. Here I initialize the inputs and the userdata.
 const Home: NextPage = () => {

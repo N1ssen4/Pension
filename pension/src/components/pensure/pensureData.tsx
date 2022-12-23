@@ -40,7 +40,7 @@ const PensureData = () => {
     <>
       <div className="space-y-6">
         <div className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
-          <div>Samlet pensionsindsamling:</div>
+          <div data-test-id="pensureDataTitle">Samlet pensionsindsamling:</div>
           <div className="space-y-3">
             {pensionInfo ? (
               Object.entries(
@@ -69,18 +69,18 @@ const PensureData = () => {
                 </>
               ))
             ) : (
-              <div>Loading...</div>
+              <div data-test-id="pensureLoading">Loading...</div>
             )}
           </div>
           <div className="flex justify-start"></div>
         </div>
-        <div className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
+        <div data-test-id="pensureDataSubtext" className="w-[300px] space-y-3 rounded-t-2xl rounded-br-2xl border p-5 shadow">
           Har vi fundet de rigtige oplysninger? Du kan rette dine oplysninger på
           næste side hvis der er eventuelle fejl.
         </div>
-        <div className="flex justify-center">
-          <Link href={"/"}>
-            <button className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
+        <div  className="flex justify-center">
+          <Link data-test-id="pensureDataButtonWrapper" href={"/"}>
+            <button data-test-id="pensureDataButton" className="h-[40px] w-[114px] rounded-[25px] border bg-[#0700F7] text-white">
               Gå videre
             </button>
           </Link>

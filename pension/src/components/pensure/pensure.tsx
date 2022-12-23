@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
-export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
+const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
   const router = useRouter();
   //Defining the redirectURL for pensure, so it knows where to send the user after completing their flow.
 
@@ -40,14 +40,17 @@ export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
 
   return (
     <>
-      <div className="text-center ">
-        Hent automatisk din pensionsdata ved at benytte vores samarbejdspartner
+      <div data-test-id="pensureButtonWrapper" className="text-center ">
+        <div data-test-id="pensureTitle">
+          Hent automatisk din pensionsdata ved at benytte vores
+          samarbejdspartner
+        </div>
         <div>
           <a
             className="cursor-pointer bg-gradient-to-r from-[#FEB791] to-[#F57A83] bg-clip-text text-transparent"
             onClick={onClick}
           >
-            <button className="rounded-md bg-gradient-to-r from-[#FEB791] to-[#F57A83] px-3 py-1 font-semibold text-white">
+            <button data-test-id="pensureButton" className="rounded-md bg-gradient-to-r from-[#FEB791] to-[#F57A83] px-3 py-1 font-semibold text-white">
               Pensure
             </button>
           </a>
@@ -56,3 +59,5 @@ export const PensureLinkButton = ({ forwardurl }: { forwardurl: string }) => {
     </>
   );
 };
+
+export default PensureLinkButton;

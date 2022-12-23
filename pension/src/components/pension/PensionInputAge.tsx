@@ -1,11 +1,16 @@
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "../../context";
 import { getSetError } from "../../hooks/hooks";
 import { pensionAge } from "../../utils/calculatePensionAge";
 import { PensionAgeCheck } from "../../utils/PensionAgeCheck";
 import { ErrorField } from "../home/ErrorField";
+import { InfoModal } from "../home/InfoModal";
 
 const PensionInputAge = () => {
+  const [isModalOpen, setModalState] = React.useState(false);
+  const toggleModal = () => setModalState(!isModalOpen);
+
   //Initialize context.
   const { setField, user } = useContext(UserContext);
   //Initialize error states.
@@ -47,9 +52,20 @@ const PensionInputAge = () => {
     <>
       <div className="flex justify-between text-center font-semibold">
         <div>
+          <div className="flex">
           <label data-test-id="publicPensionAge" className="mx-6 flex">
             Folkepensions-alder
           </label>
+          <button className="-ml-4" onClick={toggleModal}>
+            <QuestionMarkCircleIcon
+              id="navn"
+              className="h-[17px] w-[17px] stroke-[#8E9197]"
+            />
+          </button>
+          </div>
+          <InfoModal isOpen={isModalOpen} onclose={toggleModal}>
+            Folkepensionsalderen er blot vejledende og kan være anderledes. 
+          </InfoModal>
           <input
             data-test-id-input="publicPensionAge"
             id="publicPensionAge"
